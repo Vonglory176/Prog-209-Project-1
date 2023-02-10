@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="CSS/themes/two.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="CSS/style.css">
+
+    <title>To-Do List</title>
+</head>
+
+<body>
+    <!-- ==================================================================================================================== -->
+    <!-- HOME PAGE =============================================================================================== -->
+    <div data-role="page" id="home">
+
+        <!-- HOME PAGE Header -->
+        <div data-role="header" data-theme='c'>
+            <h1></h1>
+
+            <!-- Navbar -->
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#addAToDo">Add A To Do</a></li>
+                    <li><a href="#viewMyToDos">View My To Do's</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- HOME PAGE Home Content -->
+        <div data-role="content" data-theme='c'>
+            <div class="itemContainer">
+                <br><br>
+                <h1>Welcome to your To-Do List!</h1>
+                This is the home page
+                <br><br>
+                <h2>--Dashboard--</h2>
+                You have completed X To-Do items today <br>
+                You have X outstanding items on your list
+                <br><br>
+
+                <a href="a href=#addAToDo">I want to add a To-Do Item</a><br>
+                <a href="a href=#viewMyToDos">Take me to my To-Do List</a><br>
+
+            </div>
+        </div>
+
+        <!-- HOME PAGE Footer -->
+        <div data-role="footer" data-theme='c'>
+            <h3>Copyright 2023 by Skyler Conley & Alesia Cameron</h3>
+        </div>
+    </div>
+
+    <!-- ==================================================================================================================== -->
+    <!-- ADD A TO DO PAGE =============================================================================================== -->
+    <div data-role="page" id="addAToDo">
+
+        <!-- ADD A TO DO Header -->
+        <div data-role="header" data-theme='c'>
+            <h1> </h1>
+
+            <!-- Navbar -->
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#viewMyToDos">View My To Do's</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ADD A TO DO Home Content -->
+        <div data-role="content" data-theme='c'
+            style="background-image: url(CSS/Images/blanknotebook2.png) ; background-size: cover; " ;>
+            <br>
+            <div class="itemContainer"><br><br>
+
+                <div id="toDoInputBox">
+                    <!-- TEXT INPUT FOR LIST ITEM -->
+                    <label class="headerLabel">What would you like to get done today?</label>
+                    <input type="text" id="toDoInput"></br>
+
+
+                    <!-- DROP DOWN MENU FOR LIST ITEM CATEGORY-->
+                    <label class="headerLabel">Please select a category for this task</label>
+
+
+                    <select name="category" id="category">
+                        <option value="default" selected disabled hidden>Select...</option>
+                        <option value="work">Work</option>
+                        <option value="school">School</option>
+                        <option value="home">Home</option>
+                        <option value="none">None</option>
+
+                    </select><br>
+
+
+                    <!-- //PRIORITY PICKER RADIO BUTTONS -->
+                    <label class="headerLabel">How important and urgent is this task?</label>
+
+                    <input type="radio" name="priorityRadio" id="radioVeryHigh">
+                    <label class="priorityLabel" for="radioVeryHigh" style="background:rgba(159, 22, 22, 0.6);">
+                        Important and very urgent!!</label>
+
+                    <input type="radio" name="priorityRadio" id="radioHigh">
+                    <label class="priorityLabel" for="radioHigh" style="background:rgba(252, 103, 3, 0.6);">Not urgent
+                        but still important!</label>
+
+                    <input type="radio" name="priorityRadio" id="radioMedium">
+                    <label class="priorityLabel" for="radioMedium" style="background: rgb(239, 168, 3, 0.6);"> Kind of
+                        important but not very urgent</label>
+
+                    <input type="radio" name="priorityRadio" id="radioLow">
+                    <label class="priorityLabel" for="radioLow" style="background:rgba(0, 128, 0, 0.6);"> Neither
+                        important nor urgent</label> <br>
+
+                    <!-- ADD ITEM TO LIST BUTTON -->
+                    <div id="addAToDoDiv"><input type="button" value="Add Item" id="addToDoButton"></div>
+                    <!-- VIEW MY TO DO'S BUTTON -->
+                    <div id="viewMyToDosDiv"><input type="button" value="View My To Do's" id="viewMyToDosButton"></div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ADD A TO DO Footer -->
+        <div data-role="footer" data-theme='c'>
+            <h3>Copyright 2023 by Skyler Conley & Alesia Cameron</h3>
+        </div>
+    </div>
+    <!-- ==================================================================================================================== -->
+    <!-- VIEW MY TO DO'S PAGE ======================================================================================== -->
+    <div data-role="page" id="viewMyToDos">
+
+        <!-- VIEW MY TO DO'S Header -->
+        <div data-role="header" data-theme='c'>
+            <h1></h1>
+
+            <!-- Navbar -->
+            <div data-role="navbar" data-theme='c'>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#addAToDo">Add a To Do</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- VIEW MY TO DO'S Content -->
+        <div data-role="content" data-theme='c'
+            style="background-image: url(CSS/Images/paper.jpg) ; background-size: cover ;">
+
+            <div class="itemContainerTasks">
+                <br><br><br>
+
+                <div id="viewMyToDosButtonContainer">
+                    <!-- Order by priority buttons -->
+                    <input type="button" value="Show Me High Priority To-Do's" id="showMeHighPriorityOnlyButton">
+                    <input type="button" value="Show Me Completed To-Do's" id="showMeCompletedToDosButton">
+                    <br><br>
+                </div>
+
+
+                <div id="toDoDisplay">
+                    <ul>
+                        <li><a href="#viewToDoDetails"> Clicking a To-Do item will take the user to the Item Details
+                                Page</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW MY TO DO'S Footer -->
+        <div data-role="footer" data-theme='c'>
+            <h3>Copyright 2023 by Skyler Conley & Alesia Cameron</h3>
+        </div>
+    </div>
+
+
+    <!-- ==================================================================================================================== -->
+    <!-- VIEW TO DO DETAILS PAGE ========================================================================================== -->
+    <div data-role="page" id="viewToDoDetails">
+
+        <!-- VIEW TO DO DETAILS Header -->
+        <div data-role="header" data-theme='c'>
+            <h1> </h1>
+
+            <!-- Navbar -->
+            <div data-role="navbar" data-theme='c'>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#viewMyToDos">View My To Do's</a></li>
+                    <li><a href="#addAToDo">Add a To Do</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- VIEW TO DO DETAILS Content -->
+        <div data-role="content" data-theme='c'
+            style="background-image: url(CSS/Images/paper.jpg) ; background-size: cover;">
+            <div class="itemContainerTasks">
+                <h2>Let's take a closer look at your task...</h2> <br>
+                Task name <br>
+                Task Description <br>
+                Priority Level <br>
+                Category <br>
+                Date Added <br>
+                <br>
+                Mark As Complete - Edit - Delete
+
+            </div>
+        </div>
+
+        <!-- VIEW TO DO DETAILS Footer -->
+        <div data-role="footer" data-theme='c'>
+            <h3>Copyright 2023 by Skyler Conley & Alesia Cameron</h3>
+        </div>
+    </div>
+    <!-- ==================================================================================================================== -->
+    <script src="main.js"></script>
+</body>
+
+</html>
