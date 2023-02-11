@@ -33,17 +33,17 @@ async function addTask() {
         let category, priority
 
         //TO-DO LIST ITEM CREATION & ARRAY PUSH
-        radioID === 'radioVeryHigh' ? (priority = 1) :
-            radioID === 'radioHigh' ? (priority = 2) :
-                radioID === 'radioMedium' ? (priority = 3) :
-                    (priority = 4)
+        if      (radioID === 'radioVeryHigh') priority = 1
+        else if (radioID === 'radioHigh')     priority = 2
+        else if (radioID === 'radioMedium')   priority = 3
+        else    /*radioID === 'radioLow' */   priority = 4
 
-        categoryID === 'work' ? (category = 1) :
-            categoryID === 'school' ? (category = 2) :
-                categoryID === 'home' ? (category = 3) :
-                    (category = 4)
+        if      (categoryID === 'work')   category = 1
+        else if (categoryID === 'school') category = 2
+        else if (categoryID === 'home')   category = 3
+        else    /*categoryID === 'none'*/ category = 4
 
-        //toDoArray.push(new task(todo, category, priority))
+        //Days[TasksForSpecifiedDay]
         dayArray[selectedDay].push(new task(todo, category, priority))
         console.log(dayArray)
 
@@ -66,12 +66,18 @@ function radioCheck() {
 }
 
 //TEXT INPUT CHECK
-function inputCheck() {
-    return new Promise((resolve, reject) => {
-        input = ($('#toDoInput').val()).trim()
-        input ? resolve(input) : reject("Please enter a valid task!") //Verifying input isn't just whitespace
+function inputCheck() { return new Promise((resolve, reject) => {
+        input = ($('#toDoInput').val()).trim() //Verifying input isn't just whitespace
+        if (input) resolve(input)
+        else reject("Please enter a valid task!") 
     })
 }
+
+// function nonPromise() {
+//     input = ($('#toDoInput').val()).trim() //Verifying input isn't just whitespace
+//     if (input) return input
+//     else throw new Error ("Please enter a valid task!")
+// }
 
 //LIST TASKS IN PROGRESS
 //VIEW HIGH PRIORITY TASKS ONLY
