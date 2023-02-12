@@ -12,114 +12,67 @@ function task(task, category, priority) {
     this.task = task,
         this.category = category,
         this.priority = priority
-    //this.notes=''
+        this.notes=''
 }
 
 //Need day selection reset caller for toDo/addToDo page changes
-//Need day selection verification for addToDo
-//Need category selection verification or default value of 'None' for addToDo 
-
 //Convert Highest Priority and Completed Tasks code
 //Convert Array Sorter code
 
 //FUNCTION ADDING ITEMS TO TO-DO LIST
-async function addTask() {
+function addTask() {
     try {
+        calendarCheck()
+        let toDo = inputCheck(),
+        category = categoryCheck(),
+        radioID = radioCheck()
 
-        //CHECKING TO MAKE SURE DATE IS SELECTED
-        if (calendarCheck()) {
-            //GRABBING INFO FROM URGENCY SELECTOR RADIO BUTTONS 
-            let radioID = await radioCheck(), todo = await inputCheck() //Verifying Button-Press/Text-Input
-            let category = categoryCheck()
-            console.log(selectedDay)
-            let priority
+        let radio 
+        if      (radioID === 'radioVeryHigh') radio = 1
+        else if (radioID === 'radioHigh')     radio = 2
+        else if (radioID === 'radioMedium')   radio = 3
+        else    /*radioID === 'radioLow' */   radio = 4
 
-            //TO-DO LIST ITEM CREATION & ARRAY PUSH
-            if (radioID === 'radioVeryHigh') priority = 1
-            else if (radioID === 'radioHigh') priority = 2
-            else if (radioID === 'radioMedium') priority = 3
-            else    /*radioID === 'radioLow' */   priority = 4
+        //Days[TasksForSpecifiedDay]
+        dayArray[selectedDay].push(new task(toDo, category, radio))
+        console.log(dayArray)
 
-            //Days[TasksForSpecifiedDay]
-            dayArray[selectedDay].push(new task(todo, category, priority))
-            console.log(dayArray)
+        //RADIO, CATEGORY DROP DOWN & TEXT BOX RESET
+        $(`#${radioID}`).attr('checked', false)
+        $('#category').val('default')
+        $('#category').selectmenu('refresh')
+        $("#toDoInput").val('')
+        calenderResetSelection()
 
-
-            //RADIO, CATEGORY DROP DOWN & TEXT BOX RESET
-            $(`#${radioID}`).attr('checked', false)
-            $('#category').val('default')
-            $('#category').selectmenu('refresh')
-            $("#toDoInput").val('')
-        }
     } catch (error) { alert(error) }
-
 }
 
 //VALIDATION FUNCTIONS
 //RADIO BUTTON CHECK
 function radioCheck() {
-    return new Promise((resolve, reject) => {
-        document.querySelectorAll('input[name="priorityRadio"]').forEach(i => { //Iterating all input elements with name 'urgencySelector'
-            if (i.checked) resolve(i.id) //Returns ID of checked
-        })
-        reject("Please select an priority level!")
-    })
+    radios = document.querySelectorAll('input[name="priorityRadio"]')
+    for (let i=0;i<radios.length;i++) if (radios[i].checked) return radios[i].id
+    throw new Error ("Please select an priority level!")
 }
 
 //TEXT INPUT CHECK
 function inputCheck() {
-    return new Promise((resolve, reject) => {
-        input = ($('#toDoInput').val()).trim() //Verifying input isn't just whitespace
-        if (input) resolve(input)
-        else reject("Please enter a valid task!")
-    })
+    input = ($('#toDoInput').val()).trim() //Verifying input isn't just whitespace
+    if (input) return input
+    throw new Error ("Error: Please enter a valid task!")
 }
 
 //CATEGORY SELECTION CHECK
 function categoryCheck() {
-    let categoryID = document.getElementById("category").value
-    if (categoryID == 0) {
-        alert("Please select a category!");
-    }
-    else {
-        return categoryID;
-    }
+    if ($('#category').val() === "0") throw new Error ("Please select a category!")
+    return $('#category').val()
 }
 
 //CALENDAR SELECTION CHECK
 function calendarCheck() {
-    if (selectedDay === undefined) {
-        alert("Please select a date for your task!");
-        console.log("calendar check failed")
-        return false;
-    } else console.log("calendar check success")
-    return true;
+    if (selectedDay) return
+    throw new Error("Please select a date for your task!")
 }
-
-
-//CATEGORY INPUT CHECK
-// function nonPromise() {
-//     input = ($('#toDoInput').val()).trim() //Verifying input isn't just whitespace
-//     if (input) return input
-//     else throw new Error ("Please enter a valid task!")
-// }
-
-
-//LIST TASKS IN PROGRESS
-//VIEW HIGH PRIORITY TASKS ONLY
-// function showHighPriorityTasks() {
-//     //$("#incompleteTaskDisplay").html("") //Resetting Current Listed Tasks
-//     let toDoArray = sortArray()  //Sorting array from highest to low priority 
-
-//     for (let i = 0; i < toDoArray.length; i++) {
-//         if (toDoArray[i].priority === 1 || toDoArray[i].priority === 2) {
-
-//             let elementText = toDoArray[i].task + " -- " + (toDoArray[i].priority === 1 ? 'Very high' : 'High') + " priority"
-//             printUncompletedTasks(elementText, i, toDoArray[i].priority)//Text, Index, Priority
-
-//         }
-//     }
-// }
 
 //CALENDAR DAY CLICKED
 function viewMyTasks() {
@@ -129,17 +82,6 @@ function viewMyTasks() {
     if (!toDoArray.length > 0) $("#toDoDisplay").append(`There are no tasks to display for day ${selectedDay + 1}`)
     else for (let i = 0; i < toDoArray.length; i++) { printTasks(toDoArray[i].task, i, toDoArray[i].priority) } //Text, Index, Priority
 }
-
-// //VIEW COMPLETED TASKS BUTTON CLICK
-// function printCompletedTasks() {
-//     for (let i = 0; i < toDoArray.length; i++){
-//         if (toDoArray[i].priority === 5) {
-//             let element = $(`<li>${toDoArray[i].task} -- Completed!</li>`)//Setting HTML
-//             $(element).css('color',`${colorPicker(toDoArray[i].priority)}`)//Setting Color
-//             $("#completedTaskDisplay").append($(element))//Printing to Screen
-//         }
-//     }
-// }
 
 //Task Printer
 function printTasks(text, index, priority) {
@@ -228,4 +170,5 @@ $('.calendar .calendarDays').click(function () {
 function calenderResetSelection() {
     $('.calendarDays').css('background-color', 'white') //Add event click for page change
     $("#toDoDisplay").html("")
-} 
+}
+
