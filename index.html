@@ -80,12 +80,14 @@
         </div>
 
         <!-- ADD A TO DO Home Content -->
-        <div data-role="content" data-theme='c'
-            style="background-image: url(CSS/Images/blanknotebook2.png) ; background-size: cover; " ;>
+        <div data-role="content" data-theme='c' id="addAToDoContent"> 
+            <!-- style="background-image: url(CSS/Images/blanknotebook2.png); background-size: cover;" -->
             <br>
             <div class="itemContainer"><br><br>
 
-                <div class="calendar" id="addToDoCalendar"></div>
+                <div id="leftOfToDoInputBox">
+                    <div class="calendar" id="addToDoCalendar"></div>
+                </div>
 
                 <div id="toDoInputBox">
                     <!-- TEXT INPUT FOR LIST ITEM -->
@@ -94,7 +96,7 @@
 
 
                     <!-- DROP DOWN MENU FOR LIST ITEM CATEGORY-->
-                    <label class="headerLabel">Please select a category for this task</label>
+                    <label class="headerLabel">Please select a category for this task (Optional)</label>
 
 
                     <select name="category" id="category">
@@ -129,9 +131,12 @@
                     <!-- ADD ITEM TO LIST BUTTON -->
                     <div id="addAToDoDiv"><input type="button" value="Add Item" id="addToDoButton"></div>
                     <!-- VIEW MY TO DO'S BUTTON -->
-                    <div id="viewMyToDosDiv"><input type="button" value="View My To Do's" id="viewMyToDosButton"></div>
+                    <!-- <div id="viewMyToDosDiv"><input type="button" value="View My To Do's" id="viewMyToDosButton"></div> -->
 
                 </div>
+
+                <div id="rightOfToDoInputBox"></div>
+
             </div>
         </div>
 

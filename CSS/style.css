@@ -41,16 +41,43 @@ li {
     margin-right: auto;
 }
 
+#addAToDoContent {
+    background-image: url("../CSS/Images/floor2.png"); 
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .itemContainer {
-    width: 40%;
-    display: block;
+    background-image: url("../CSS/Images/blanknotebook5.png"); 
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 1000px;
+    height: 580px;
+    display:flex;
+    justify-content: left;
+    
     margin-left: auto;
     margin-right: auto;
+    padding-top: 15px;
+    padding-bottom: 10px;
+
+    text-align: center;
+}
+
+#leftOfToDoInputBox {
+    width: 230px;
+    padding-right: 55px;
+}
+
+#toDoInputBox {
+    
+    width: 420px;
 }
 
 
 .itemContainerTasks {
-    width: 70%;
     height: 100%;
     display: block;
     margin-left: auto;

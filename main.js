@@ -200,6 +200,7 @@ $('.calendar .calendarDays').click(function(){
 
 //Calender Reset
 function calenderResetSelection() {
+    selectedDay = undefined
     $('.calendarDays').css('background-color','white') //Add event click for page change
     $("#toDoDisplay").html("")
 } 
