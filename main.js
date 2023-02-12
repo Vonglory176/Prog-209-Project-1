@@ -8,11 +8,11 @@ $(document).ready(function () {
 
 //DAY ARRAY & TO-DO LIST OBJECT CREATION
 let dayArray = [] //subArrays created in calendar section
-function task(task, category, priority) { 
-    this.task = task, 
-    this.category = category, 
-    this.priority = priority, 
-    this.notes=''
+function task(task, category, priority) {
+    this.task = task,
+        this.category = category,
+        this.priority = priority
+    //this.notes=''
 }
 
 //Need day selection reset caller for toDo/addToDo page changes
@@ -25,33 +25,34 @@ function task(task, category, priority) {
 //FUNCTION ADDING ITEMS TO TO-DO LIST
 async function addTask() {
     try {
-        //GRABBING INFO FROM URGENCY SELECTOR RADIO BUTTONS 
-        let radioID = await radioCheck(), todo = await inputCheck() //Verifying Button-Press/Text-Input
-        let categoryID = document.getElementById("category").value
-        console.log(selectedDay)
 
-        let category, priority
+        //CHECKING TO MAKE SURE DATE IS SELECTED
+        if (calendarCheck()) {
+            //GRABBING INFO FROM URGENCY SELECTOR RADIO BUTTONS 
+            let radioID = await radioCheck(), todo = await inputCheck() //Verifying Button-Press/Text-Input
+            let categoryID = await categoryCheck()
+            console.log(selectedDay)
+            let category, priority
 
-        //TO-DO LIST ITEM CREATION & ARRAY PUSH
-        if      (radioID === 'radioVeryHigh') priority = 1
-        else if (radioID === 'radioHigh')     priority = 2
-        else if (radioID === 'radioMedium')   priority = 3
-        else    /*radioID === 'radioLow' */   priority = 4
+            //TO-DO LIST ITEM CREATION & ARRAY PUSH
+            if (radioID === 'radioVeryHigh') priority = 1
+            else if (radioID === 'radioHigh') priority = 2
+            else if (radioID === 'radioMedium') priority = 3
+            else    /*radioID === 'radioLow' */   priority = 4
 
-        if      (categoryID === 'work')   category = 1
-        else if (categoryID === 'school') category = 2
-        else if (categoryID === 'home')   category = 3
-        else    /*categoryID === 'none'*/ category = 4
+            //Days[TasksForSpecifiedDay]
+            dayArray[selectedDay].push(new task(todo, category, priority))
+            console.log(dayArray)
 
-        //Days[TasksForSpecifiedDay]
-        dayArray[selectedDay].push(new task(todo, category, priority))
-        console.log(dayArray)
 
-        //RADIO, CATEGORY DROP DOWN & TEXT BOX RESET
-        $(`#${radioID}`).attr('checked', false)
-        $("#toDoInput").val('')
-
+            //RADIO, CATEGORY DROP DOWN & TEXT BOX RESET
+            $(`#${radioID}`).attr('checked', false)
+            $('#category').val('default')
+            $('#category').selectmenu('refresh')
+            $("#toDoInput").val('')
+        }
     } catch (error) { alert(error) }
+
 }
 
 //VALIDATION FUNCTIONS
@@ -66,18 +67,43 @@ function radioCheck() {
 }
 
 //TEXT INPUT CHECK
-function inputCheck() { return new Promise((resolve, reject) => {
+function inputCheck() {
+    return new Promise((resolve, reject) => {
         input = ($('#toDoInput').val()).trim() //Verifying input isn't just whitespace
         if (input) resolve(input)
-        else reject("Please enter a valid task!") 
+        else reject("Please enter a valid task!")
     })
 }
 
+//CATEGORY SELECTION CHECK
+function categoryCheck() {
+    let categoryID = document.getElementById("category").value
+    if (categoryID === 'select') {
+        alert("Please select a category!");
+    }
+    else {
+        return categoryID;
+    }
+}
+
+//CALENDAR SELECTION CHECK
+function calendarCheck() {
+    if (selectedDay === undefined) {
+        alert("Please select a date for your task!");
+        console.log("calendar check failed")
+        return false;
+    } else console.log("calendar check success")
+    return true;
+}
+
+
+//CATEGORY INPUT CHECK
 // function nonPromise() {
 //     input = ($('#toDoInput').val()).trim() //Verifying input isn't just whitespace
 //     if (input) return input
 //     else throw new Error ("Please enter a valid task!")
 // }
+
 
 //LIST TASKS IN PROGRESS
 //VIEW HIGH PRIORITY TASKS ONLY
@@ -99,8 +125,8 @@ function inputCheck() { return new Promise((resolve, reject) => {
 function viewMyTasks() {
     //let toDoArray = sortArray() //Sorting array from highest to low priority
     let toDoArray = dayArray[selectedDay]
-    
-    if (!toDoArray.length > 0) $("#toDoDisplay").append(`There are no tasks to display for day ${selectedDay+1}`)
+
+    if (!toDoArray.length > 0) $("#toDoDisplay").append(`There are no tasks to display for day ${selectedDay + 1}`)
     else for (let i = 0; i < toDoArray.length; i++) { printTasks(toDoArray[i].task, i, toDoArray[i].priority) } //Text, Index, Priority
 }
 
@@ -116,14 +142,14 @@ function viewMyTasks() {
 // }
 
 //Task Printer
-function printTasks(text, index, priority){
+function printTasks(text, index, priority) {
     //Radio Button
     let elementRadio = $(`<input type='radio'>`)//Setting HTML
     $(elementRadio).attr('id', `taskRadio${index}`)//Setting ID
 
-    $(elementRadio).on('click', function(){//Attaching Event Handler
+    $(elementRadio).on('click', function () {//Attaching Event Handler
         dayArray[selectedDay][index].priority = 5
-        $(`#taskLabel${index}`).css('color',colorPicker(5))
+        $(`#taskLabel${index}`).css('color', colorPicker(5))
     })
 
     //Affiliated Label
@@ -132,7 +158,7 @@ function printTasks(text, index, priority){
     $(elementLabel).attr('id', `taskLabel${index}`)//Setting ID
     $(elementLabel).css('color', colorPicker(priority))//Setting Color
 
-    $("#toDoDisplay").append("•&emsp;",$(elementLabel),$(elementRadio)," -- Task Completed? <br>")//Printing to Screen
+    $("#toDoDisplay").append("•&emsp;", $(elementLabel), $(elementRadio), " -- Task Completed? <br>")//Printing to Screen
 }
 
 //Array Sorter
@@ -140,7 +166,7 @@ function printTasks(text, index, priority){
 
 //Color Code Based on Priority System
 function colorPicker(priority) {
-    if      (priority === 1) return 'rgb(212, 2, 2)'
+    if (priority === 1) return 'rgb(212, 2, 2)'
     else if (priority === 2) return 'rgb(255, 68, 0)'
     else if (priority === 3) return 'rgb(239, 168, 3)'
     else if (priority === 4) return 'green'
@@ -166,13 +192,13 @@ function createCalendar(month) {
 
         if (getDay(d) % 7 == 6) table += '</tr><tr>' // Sunday, last day of week - newline
 
-    d.setDate(d.getDate() + 1);
+        d.setDate(d.getDate() + 1);
     }
     console.log(dayArray)
 
     // Add spaces after last days of month for the last row // 29 30 31 * * * *
     if (getDay(d) != 0) {
-      for (let i = getDay(d); i < 7; i++) table += '<td></td>'
+        for (let i = getDay(d); i < 7; i++) table += '<td></td>'
     }
 
     // Close & Print the Table
@@ -189,17 +215,17 @@ createCalendar(d.getMonth())
 
 //Calender Select
 let selectedDay
-$('.calendar .calendarDays').click(function(){
+$('.calendar .calendarDays').click(function () {
     calenderResetSelection()
 
-    selectedDay = parseInt(this.id)-1
-    $(this).css('background-color','aqua')
+    selectedDay = parseInt(this.id) - 1
+    $(this).css('background-color', 'aqua')
 
-    try{viewMyTasks()}catch{}
+    try { viewMyTasks() } catch { }
 })
 
 //Calender Reset
 function calenderResetSelection() {
-    $('.calendarDays').css('background-color','white') //Add event click for page change
+    $('.calendarDays').css('background-color', 'white') //Add event click for page change
     $("#toDoDisplay").html("")
 } 
