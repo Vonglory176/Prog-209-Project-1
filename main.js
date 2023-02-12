@@ -30,9 +30,9 @@ async function addTask() {
         if (calendarCheck()) {
             //GRABBING INFO FROM URGENCY SELECTOR RADIO BUTTONS 
             let radioID = await radioCheck(), todo = await inputCheck() //Verifying Button-Press/Text-Input
-            let categoryID = await categoryCheck()
+            let category = await categoryCheck()
             console.log(selectedDay)
-            let category, priority
+            let priority
 
             //TO-DO LIST ITEM CREATION & ARRAY PUSH
             if (radioID === 'radioVeryHigh') priority = 1
@@ -78,7 +78,7 @@ function inputCheck() {
 //CATEGORY SELECTION CHECK
 function categoryCheck() {
     let categoryID = document.getElementById("category").value
-    if (categoryID === 'select') {
+    if (categoryID == 0) {
         alert("Please select a category!");
     }
     else {
