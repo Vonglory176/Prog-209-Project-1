@@ -30,7 +30,7 @@ async function addTask() {
         if (calendarCheck()) {
             //GRABBING INFO FROM URGENCY SELECTOR RADIO BUTTONS 
             let radioID = await radioCheck(), todo = await inputCheck() //Verifying Button-Press/Text-Input
-            let category = await categoryCheck()
+            let category = categoryCheck()
             console.log(selectedDay)
             let priority
 
