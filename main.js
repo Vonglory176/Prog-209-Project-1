@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('#addToDoButton').on('click', addTask)
     //$('#showMeAllToDosButton').on('click', viewMyTasks)
-    //$('#viewHighPriorityOnlyButton').on('click', showHighPriorityTasks)
+    // $('#viewHighPriorityOnlyButton').on('click', showHighPriorityTasks)
     //$('#prioritizeButton').on('click', prioritizeTasks())
     //$('#viewMyCompletedTasksButton').on('click', printCompletedTasks)
 });
@@ -12,7 +12,7 @@ function task(task, category, priority) {
     this.task = task,
         this.category = category,
         this.priority = priority
-        this.notes=''
+    this.notes = ''
 }
 
 //Need day selection reset caller for toDo/addToDo page changes
@@ -24,13 +24,13 @@ function addTask() {
     try {
         calendarCheck()
         let toDo = inputCheck(),
-        category = categoryCheck(),
-        radioID = radioCheck()
+            category = categoryCheck(),
+            radioID = radioCheck()
 
-        let radio 
-        if      (radioID === 'radioVeryHigh') radio = 1
-        else if (radioID === 'radioHigh')     radio = 2
-        else if (radioID === 'radioMedium')   radio = 3
+        let radio
+        if (radioID === 'radioVeryHigh') radio = 1
+        else if (radioID === 'radioHigh') radio = 2
+        else if (radioID === 'radioMedium') radio = 3
         else    /*radioID === 'radioLow' */   radio = 4
 
         //Days[TasksForSpecifiedDay]
@@ -47,24 +47,24 @@ function addTask() {
     } catch (error) { alert(error) }
 }
 
-//VALIDATION FUNCTIONS
+//VALIDATION FUNCTIONS --------------------------------------------------------------
 //RADIO BUTTON CHECK
 function radioCheck() {
     radios = document.querySelectorAll('input[name="priorityRadio"]')
-    for (let i=0;i<radios.length;i++) if (radios[i].checked) return radios[i].id
-    throw new Error ("Please select an priority level!")
+    for (let i = 0; i < radios.length; i++) if (radios[i].checked) return radios[i].id
+    throw new Error("Please select an priority level!")
 }
 
 //TEXT INPUT CHECK
 function inputCheck() {
     input = ($('#toDoInput').val()).trim() //Verifying input isn't just whitespace
     if (input) return input
-    throw new Error ("Error: Please enter a valid task!")
+    throw new Error("Error: Please enter a valid task!")
 }
 
 //CATEGORY SELECTION CHECK
 function categoryCheck() {
-    if ($('#category').val() === "0") throw new Error ("Please select a category!")
+    if ($('#category').val() === "0") throw new Error("Please select a category!")
     return $('#category').val()
 }
 
@@ -74,14 +74,47 @@ function calendarCheck() {
     throw new Error("Please select a date for your task!")
 }
 
-//CALENDAR DAY CLICKED
-function viewMyTasks() {
+//VALIDATION FUNCTIONS END --------------------------------------------------------------
+
+
+
+//CALENDAR DAY CLICKED , VIEW TASKS BY DAY
+function viewMyTasksByDay() {
     //let toDoArray = sortArray() //Sorting array from highest to low priority
     let toDoArray = dayArray[selectedDay]
 
     if (!toDoArray.length > 0) $("#toDoDisplay").append(`There are no tasks to display for day ${selectedDay + 1}`)
     else for (let i = 0; i < toDoArray.length; i++) { printTasks(toDoArray[i].task, i, toDoArray[i].priority) } //Text, Index, Priority
 }
+
+
+//VIEW ALL TASKS -- THIS WILL POPULATE THE DISPLAY WHEN USER NAVIGATES TO VIEW MY TODO
+function viewAllTasks() {
+    //let toDoArray = sortArray() //Sorting array from highest to low priority
+    let entireToDoList = document.getElementById("toDoDisplay")
+    entireToDoList.innerHTML = " "
+
+    let allTasksArray = []
+
+    for (let i = 0; i < dayArray.length; i++) {
+
+        if (dayArray[i].length > 0) {
+            allTasksArray = dayArray[i]
+            allTasksArray.forEach(function (element) {
+                var list = document.createElement('li');
+                list.innerHTML = element.task;
+            })
+        }
+    }
+    console.log(toDoArray)
+}
+
+
+
+// if (!toDoArray.length > 0) $("#toDoDisplay").append(`There are no tasks to display `)
+// else for (let i = 0; i < toDoArray.length; i++) { printTasks(toDoArray[i].task, i, //toDoArray[i].priority) } //Text, Index, Priority
+
+
 
 //Task Printer
 function printTasks(text, index, priority) {
@@ -163,7 +196,7 @@ $('.calendar .calendarDays').click(function () {
     selectedDay = parseInt(this.id) - 1
     $(this).css('background-color', 'aqua')
 
-    try { viewMyTasks() } catch { }
+    try { viewMyTasksByDay() } catch { }
 })
 
 //Calender Reset
