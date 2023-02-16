@@ -16,9 +16,10 @@ h1 {
     text-shadow: none !important;
 }
 
-h3 {
+h3,
+li {
     text-transform: uppercase;
-    font-size: 12px !important;
+    font-size: 1em !important;
 }
 
 label.headerLabel {
@@ -49,26 +50,58 @@ li {
 }
 
 
-.itemContainerTasks {
+.viewToDoItemContainer {
     width: 70%;
     height: 100%;
-    display: block;
+    display: flex;
     margin-left: auto;
     margin-right: auto;
+    padding: .5em;
+    background-color: aqua;
+    align-items: center;
 }
+
+#viewMyToDosButtonContainer {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: green;
+    align-items: center;
+}
+
+#leftSideViewToDoContainer {
+    width: 40%;
+    height: 100%;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: .5em;
+    background-color: blue;
+}
+
+#rightSideViewToDoContainer,
+#toDoDisplay {
+    width: 40%;
+    height: 100%;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: yellow;
+}
+
+#toDoDisplay {
+    margin-left: 28px;
+}
+
 
 .showMeHighPriorityOnlyButton,
 .showMeCompletedToDosButton {
     display: inline;
 }
 
-#viewMyToDosButtonContainer {
-    width: 30%;
-    height: 100%;
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 .leftSubContainer {
     display: flex-start;
@@ -89,13 +122,6 @@ li {
     margin-right: auto;
 }
 
-#viewMyToDosDiv {
-    width: 30%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 #radio {
     width: 75%;
     display: inline-block;
@@ -105,20 +131,20 @@ li {
 
 table {
     border-collapse: collapse;
-  }
+}
 
-  td,
-  th {
+td,
+th {
     border: 1px solid black;
     padding: 3px;
     text-align: center;
-  }
+}
 
-  th {
+th {
     font-weight: bold;
     background-color: #E6E6E6;
-  }
+}
 
-  td {
+td {
     background-color: white;
-  }
+}

@@ -161,26 +161,30 @@
         <div data-role="content" data-theme='c'
             style="background-image: url(CSS/Images/paper.jpg) ; background-size: cover ;">
 
-            <div class="itemContainerTasks">
+            <div id="viewMyToDosButtonContainer">
+                <!-- Order by priority buttons -->
+                <input type="button" value="View All To-Do's" id="showMeAllToDosButton">
+                <input type="button" value="High Priority To-Do's" id="showMeHighPriorityOnlyButton">
+                <input type="button" value="Completed To-Do's" id="showMeCompletedToDosButton">
+                <br><br>
+            </div>
+
+            <div class="viewToDoItemContainer">
                 <br><br><br>
 
-                <div class="calendar" id="toDoCalendar"></div> <!--CALENDAR TESTING-->
-
-                <div id="viewMyToDosButtonContainer">
-                    <!-- Order by priority buttons -->
-                    <input type="button" value="High Priority To-Do's" id="showMeHighPriorityOnlyButton">
-                    <input type="button" value="Completed To-Do's" id="showMeCompletedToDosButton">
-                    <br><br>
+                <div id="leftSideViewToDoContainer">
+                    <div class="calendar" id="toDoCalendar"></div> <!--CALENDAR TESTING-->
                 </div>
 
-                <div id="demonstrationDiv"> <!--HERE FOR DEMONSTRATION PURPOSES-->
-                    <ul>
-                        <li><a href="#viewToDoDetails"> Clicking a To-Do item will take the user to the Item Details
-                                Page</a></li>
-                    </ul>
+                <div id="rightSideViewToDoContainer">
+                    <div id="toDoDisplay"></div>
+                    <div id="demonstrationDiv"> <!--HERE FOR DEMONSTRATION PURPOSES-->
+                        <ul>
+                            <li><a href="#viewToDoDetails"> Clicking a To-Do item will take the user to the Item Details
+                                    Page</a></li>
+                        </ul>
+                    </div>
                 </div>
-
-                <div id="toDoDisplay"></div>
 
             </div>
         </div>

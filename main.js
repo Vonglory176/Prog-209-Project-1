@@ -1,13 +1,31 @@
 $(document).ready(function () {
     $('#addToDoButton').on('click', addTask)
+    //$('#viewMyToDos').on('click', viewAllTasks)
+    $('#showMeAllToDosButton').on('click', viewAllTasks)
+
+
+    //PAGE BEFORE SHOW CODE
+    //VIEW MY TODOS
+
     //$('#showMeAllToDosButton').on('click', viewMyTasks)
     // $('#viewHighPriorityOnlyButton').on('click', showHighPriorityTasks)
     //$('#prioritizeButton').on('click', prioritizeTasks())
     //$('#viewMyCompletedTasksButton').on('click', printCompletedTasks)
+
+    //$(document).on("#viewMyToDos", function (event) {
+    //     viewAllTasks();
+    //  })
+
+
 });
 
-//DAY ARRAY & TO-DO LIST OBJECT CREATION
+
+
+
+//ALL TASK ARRAY, DAY ARRAY & TO-DO LIST OBJECT CREATION
+let allTasksArray = []
 let dayArray = [] //subArrays created in calendar section
+
 function task(task, category, priority) {
     this.task = task,
         this.category = category,
@@ -33,8 +51,10 @@ function addTask() {
         else if (radioID === 'radioMedium') radio = 3
         else    /*radioID === 'radioLow' */   radio = 4
 
-        //Days[TasksForSpecifiedDay]
+        //DAYS [TasksForSpecifiedDay]
         dayArray[selectedDay].push(new task(toDo, category, radio))
+        //All TASKS ARRAY 
+        allTasksArray.push(new task(toDo, category, radio))
         console.log(dayArray)
 
         //RADIO, CATEGORY DROP DOWN & TEXT BOX RESET
@@ -46,6 +66,8 @@ function addTask() {
 
     } catch (error) { alert(error) }
 }
+
+
 
 //VALIDATION FUNCTIONS --------------------------------------------------------------
 //RADIO BUTTON CHECK
@@ -73,7 +95,6 @@ function calendarCheck() {
     if (selectedDay) return
     throw new Error("Please select a date for your task!")
 }
-
 //VALIDATION FUNCTIONS END --------------------------------------------------------------
 
 
@@ -88,33 +109,39 @@ function viewMyTasksByDay() {
 }
 
 
-//VIEW ALL TASKS -- THIS WILL POPULATE THE DISPLAY WHEN USER NAVIGATES TO VIEW MY TODO
+//VIEW ALL TASKS --  POPULATE THE DISPLAY WHEN USER NAVIGATES TO VIEW MY TODO
 function viewAllTasks() {
-    //let toDoArray = sortArray() //Sorting array from highest to low priority
-    let entireToDoList = document.getElementById("toDoDisplay")
-    entireToDoList.innerHTML = " "
 
-    let allTasksArray = []
+    let theList = document.getElementById("toDoDisplay");
+    theList.innerHTML = " ";
 
-    for (let i = 0; i < dayArray.length; i++) {
+    allTasksArray.forEach(function (element) {
+        var list = document.createElement('li');
+        list.innerHTML = element.task + " " + element.category + " " + element.priority;
+        theList.appendChild(list);
 
-        if (dayArray[i].length > 0) {
-            allTasksArray = dayArray[i]
-            allTasksArray.forEach(function (element) {
-                var list = document.createElement('li');
-                list.innerHTML = element.task;
-            })
-        }
-    }
-    console.log(toDoArray)
+    })
 }
 
+//Uncompleted Task printing
+function printIncompleteTasks(text, index, priority) {
+    //Radio Button
+    let elementRadio = $(`<input type='radio'>`)//Setting HTML
+    $(elementRadio).attr('id', `taskRadio${index}`)//Setting ID
 
+    $(elementRadio).on('click', function () {//Attaching Event Handler
+        toDoArray[index].priority = 5
+        $(`#taskLabel${index}`).css('color', colorPicker(5))
+    })
 
-// if (!toDoArray.length > 0) $("#toDoDisplay").append(`There are no tasks to display `)
-// else for (let i = 0; i < toDoArray.length; i++) { printTasks(toDoArray[i].task, i, //toDoArray[i].priority) } //Text, Index, Priority
+    //Affiliated Label
+    let elementLabel = $(`<label>${text}</label>`)//Setting HTML & Text
+    $(elementLabel).attr('for', `taskRadio${index}`)//Linking to Radio Button
+    $(elementLabel).attr('id', `taskLabel${index}`)//Setting ID
+    $(elementLabel).css('color', `${colorPicker(priority)}`)//Setting Color
 
-
+    $("#incompleteTaskDisplay").append("•&emsp;", $(elementLabel), $(elementRadio), " -- Task Completed? <br>")//Printing to Screen
+}
 
 //Task Printer
 function printTasks(text, index, priority) {
@@ -135,6 +162,10 @@ function printTasks(text, index, priority) {
 
     $("#toDoDisplay").append("•&emsp;", $(elementLabel), $(elementRadio), " -- Task Completed? <br>")//Printing to Screen
 }
+
+
+// if (!toDoArray.length > 0) $("#toDoDisplay").append(`There are no tasks to display `)
+// else for (let i = 0; i < toDoArray.length; i++) { printTasks(toDoArray[i].task, i, //toDoArray[i].priority) } //Text, Index, Priority
 
 //Array Sorter
 //function sortArray(){return toDoArray.sort((p1, p2) => (p1.priority > p2.priority) ? 1 : (p1.priority < p2.priority) ? -1 : 0)}
