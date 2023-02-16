@@ -1,36 +1,58 @@
+// DOM CONTENT LOADED CODE ---------------------------------------------------------------------
 $(document).ready(function () {
     $('#addToDoButton').on('click', addTask)
-    //$('#viewMyToDos').on('click', viewAllTasks)
-    $('#showMeAllToDosButton').on('click', viewAllTasks)
+    $('#viewMyToDos').on('click', viewAllTasks)
+    // $('markAsCompleteButton').on('click', )
+    // $('editButton').on('click', )
+    // $('deleteButton').on('click', )
+    //$('#showMeAllToDosButton').on('click', viewAllTasks)
 
 
-    //PAGE BEFORE SHOW CODE
+    //PAGE BEFORE SHOW CODE -----------------------------------------------
+    //Not working at the moment yikes
+
     //VIEW MY TODOS
+    /* $("document").on("pagebeforeshow", "viewMyToDos", function (event) {
+        viewAllTasks()
+     }) */
 
-    //$('#showMeAllToDosButton').on('click', viewMyTasks)
-    // $('#viewHighPriorityOnlyButton').on('click', showHighPriorityTasks)
-    //$('#prioritizeButton').on('click', prioritizeTasks())
-    //$('#viewMyCompletedTasksButton').on('click', printCompletedTasks)
+    /*
+   //VIEW DETAILS PAGE
+   $(document).on("pagebeforeshow", "#viewToDoDetails", function (event) {
+       let localParm = localStorage.getItem('parm');
+       let localID = GetArrayPointer(localParm);
 
-    //$(document).on("#viewMyToDos", function (event) {
-    //     viewAllTasks();
-    //  })
+       allTasksArray = JSON.parse(localStorage.getItem('allTasksArray'));
+
+       document.getElementById("detailsName").innerHTML = "TO-DO Item: " + allTasksArray[localID].task;
+       document.getElementById("detailsCategory").innerHTML = "Category: " + allTasksArray[localID].categoryName;
+       document.getElementById("detailsPriority").innerHTML = "Priority Level: " + allTasksArray[localID].priorityName;
+       document.getElementById("detailsDescription").innerHTML = "Description: " + allTasksArray[localID].description;
+   })*/
+
+
+
+    //END Of PAGE BEFORE SHOW CODE -----------------------------
 
 
 });
+//END Of DOM CONTENT LOADED CODE ---------------------------------------------------------------------
 
 
 
-
+//CREATION OF TASK OBJECT AND ARRAYS -----------------------------------------------------------------------
 //ALL TASK ARRAY, DAY ARRAY & TO-DO LIST OBJECT CREATION
-let allTasksArray = []
+let allTasksArray = [] //array that holds all tasks for printing entire task list without day and without having to navigate subArrays
 let dayArray = [] //subArrays created in calendar section
 
-function task(task, category, priority) {
-    this.task = task,
-        this.category = category,
-        this.priority = priority
-    this.notes = ''
+function task(task, category, categoryName, priority, priorityName) {
+    this.ID = Math.random().toString(16).slice(5)
+    this.task = task
+    this.category = category
+    this.categoryName = categoryName
+    this.priority = priority
+    this.priorityName = priorityName
+    this.description = ''
 }
 
 //Need day selection reset caller for toDo/addToDo page changes
@@ -43,18 +65,25 @@ function addTask() {
         calendarCheck()
         let toDo = inputCheck(),
             category = categoryCheck(),
-            radioID = radioCheck()
+            radioID = radioCheck(),
+            priorityName
 
         let radio
-        if (radioID === 'radioVeryHigh') radio = 1
-        else if (radioID === 'radioHigh') radio = 2
-        else if (radioID === 'radioMedium') radio = 3
-        else    /*radioID === 'radioLow' */   radio = 4
+        if (radioID === 'radioVeryHigh') radio = 1, priorityName = 'Very High Priority'
+        else if (radioID === 'radioHigh') radio = 2, priorityName = 'High Priority'
+        else if (radioID === 'radioMedium') radio = 3, priorityName = 'Medium Priority'
+        else    /*radioID === 'radioLow' */   radio = 4, priorityName = 'Low Priority'
+
+        let categoryName
+        if (category = 1) categoryName = 'Work'
+        else if (category = 2) categoryName = 'School'
+        else if (category = 3) categoryName = 'Home'
+        else categoryName = 'None'
 
         //DAYS [TasksForSpecifiedDay]
-        dayArray[selectedDay].push(new task(toDo, category, radio))
+        dayArray[selectedDay].push(new task(toDo, category, categoryName, radio, priorityName))
         //All TASKS ARRAY 
-        allTasksArray.push(new task(toDo, category, radio))
+        allTasksArray.push(new task(toDo, category, categoryName, radio, priorityName))
         console.log(dayArray)
 
         //RADIO, CATEGORY DROP DOWN & TEXT BOX RESET
@@ -65,11 +94,15 @@ function addTask() {
         calenderResetSelection()
 
     } catch (error) { alert(error) }
-}
+} //end function AddTask
+
+//END OF CREATION OF TASK OBJECT AND ARRAYS -----------------------------------------------------------------------
 
 
 
-//VALIDATION FUNCTIONS --------------------------------------------------------------
+//VALIDATION FUNCTIONS ----------------------------------------------------------------------
+
+
 //RADIO BUTTON CHECK
 function radioCheck() {
     radios = document.querySelectorAll('input[name="priorityRadio"]')
@@ -95,8 +128,9 @@ function calendarCheck() {
     if (selectedDay) return
     throw new Error("Please select a date for your task!")
 }
-//VALIDATION FUNCTIONS END --------------------------------------------------------------
 
+
+//VALIDATION FUNCTIONS END --------------------------------------------------------------
 
 
 //CALENDAR DAY CLICKED , VIEW TASKS BY DAY
@@ -110,18 +144,59 @@ function viewMyTasksByDay() {
 
 
 //VIEW ALL TASKS --  POPULATE THE DISPLAY WHEN USER NAVIGATES TO VIEW MY TODO
+//Can you please not re-vamp my function too much - otherwise I get lost in how all the JS is working and then cannot really do much
+//Initially wrote this to use for pagebeforeshow when user clicks the view to do page it would populate all the tasks, couldn't figure that out so made it into a button for now
 function viewAllTasks() {
-
+    //clear the display
     let theList = document.getElementById("toDoDisplay");
     theList.innerHTML = " ";
 
-    allTasksArray.forEach(function (element) {
-        var list = document.createElement('li');
-        list.innerHTML = element.task + " " + element.category + " " + element.priority;
-        theList.appendChild(list);
-
-    })
+    if (!allTasksArray.length > 0) $("#toDoDisplay").append(`There are no TO-DOs to display`)
+    else {
+        let theList = document.getElementById("toDoDisplay");
+        allTasksArray.forEach(function (element) {
+            var list = document.createElement('li');
+            list.setAttribute("data-parm", element.ID);
+            list.innerHTML = element.task + " " + element.category + " " + element.priority;
+            $("#toDoDisplay").append(list);
+        })
+    }
 }
+
+/*
+//VIEW HIGH PRIORITY TASKS ONLY
+function showHighPriorityTasks() {
+    let theList = document.getElementById("toDoDisplay");
+    theList.innerHTML = " ";
+    allTasksArray.forEach(function (element) {
+        if (element.priority == 1 || 2) {
+            var list = document.createElement('li');
+            list.innerHTML = element.task
+            theList.appendChild(list);
+            $(elementLabel).css('color', `${colorPicker(priority)}`)//Setting Color
+
+        }
+    })
+}*/
+
+/*
+//ITERATING THROUGH ARRAY TO FIND ARRRAY ELEMENT W MATCHING ID
+function GetArrayPointer(localID) {
+    for (let i = 0; i < allTasksArray.length; i++) {
+        if (localId === allTasksArray[i].ID) {
+            return i;
+        }
+    }
+}*/
+
+/*
+//DELETE ITEM 
+function Delete(itemToDelete) {
+    let arrayPointer = GetArrayPointer(itemToDelete);
+    allTasksArray.splice(arrayPointer, 1);
+}*/
+
+
 
 //Uncompleted Task printing
 function printIncompleteTasks(text, index, priority) {
@@ -179,7 +254,8 @@ function colorPicker(priority) {
     else if (priority === 5) return 'darkgreen' //For Complete
 }
 
-//CALENDAR CODE
+
+//CALENDAR CODE -----------------------------------------------------------
 let d = new Date();
 function createCalendar(month) {
 
@@ -235,4 +311,4 @@ function calenderResetSelection() {
     $('.calendarDays').css('background-color', 'white') //Add event click for page change
     $("#toDoDisplay").html("")
 }
-
+//END OF CALENDAR CODE -------------------------------------------------------------------

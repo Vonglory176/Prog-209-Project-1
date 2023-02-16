@@ -39,7 +39,9 @@
         </div>
 
         <!-- HOME PAGE Home Content -->
-        <div data-role="content" data-theme='c'>
+        <div data-role="content" data-theme='c'
+            style="background-image: url(CSS/Images/sky1.jpg) ; background-size: cover; " ;>
+
             <div class="itemContainer">
                 <br><br>
                 <h1>Welcome to your To-Do List!</h1>
@@ -60,7 +62,12 @@
         <div data-role="footer" data-theme='c'>
             <h3>Copyright 2023 by Skyler Conley & Alesia Cameron</h3>
         </div>
+
     </div>
+    </div>
+
+
+
 
     <!-- ==================================================================================================================== -->
     <!-- ADD A TO DO PAGE =============================================================================================== -->
@@ -173,6 +180,7 @@
                 <br><br><br>
 
                 <div id="leftSideViewToDoContainer">
+                    <p>Click day to view tasks for that day</p>
                     <div class="calendar" id="toDoCalendar"></div> <!--CALENDAR TESTING-->
                 </div>
 
@@ -216,17 +224,21 @@
 
         <!-- VIEW TO DO DETAILS Content -->
         <div data-role="content" data-theme='c'
-            style="background-image: url(CSS/Images/paper.jpg) ; background-size: cover;">
-            <div class="itemContainerTasks">
+            style="background-image: url(CSS/Images/pencilyellow.png) ; background-size: cover; " ;>
+            <div class="itemContainer">
                 <h2>Let's take a closer look at your task...</h2> <br>
-                Task name <br>
-                Task Description <br>
-                Priority Level <br>
-                Category <br>
-                Date Added <br>
+                <div id="detailsName"></div>
+                <div id="detailsCategory"></div>
+                <div id="detailsPriority"></div>
+                <div id="detailsDescription"></div>
                 <br>
-                Mark As Complete - Edit - Delete
-
+                <div id="viewDetailsButtonContainer">
+                    <!-- ADD ITEM TO LIST BUTTON -->
+                    <div id="markAsComplete"><input type="button" value="Mark As Complete" id="markAsCompleteButton">
+                    </div>
+                    <div id="edit"><input type="button" value="Edit" id="editButton"></div>
+                    <div id="delete"><input type="button" value="Delete" id="deleteButton"></div>
+                </div>
             </div>
         </div>
 

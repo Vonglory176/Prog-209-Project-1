@@ -50,6 +50,29 @@ li {
 }
 
 
+
+
+
+/*ADD TASK PAGE-----------------*/
+#addAToDoDiv {
+    width: 30%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#radio {
+    width: 75%;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*END ADD TASK PAGE----------------*/
+
+
+
+/*VIEW TO DO PAGE-----------------*/
 .viewToDoItemContainer {
     width: 70%;
     height: 100%;
@@ -80,6 +103,8 @@ li {
     margin-right: auto;
     padding: .5em;
     background-color: blue;
+    justify-content: center;
+    align-items: center;
 }
 
 #rightSideViewToDoContainer,
@@ -102,35 +127,25 @@ li {
     display: inline;
 }
 
+/*END VIEW TO DO PAGE---------------*/
 
-.leftSubContainer {
-    display: flex-start;
-    margin-left: 150px;
-    margin-right: auto;
+
+
+/*VIEW DETAILS PAGE-----------------*/
+/* this should be gettig buttons in row but it is not*/
+.viewDetailsButtonContainer {
+    display: flex;
 }
 
-.rightSubContainer {
-    min-width: 500px;
-    margin-left: 50px;
-    margin-right: auto;
-}
+/*END VIEW DETAILS PAGE---------------*/
 
-#addAToDoDiv {
-    width: 30%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
 
-#radio {
-    width: 75%;
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-}
 
+
+/*CALENDAR-----------------------*/
 table {
     border-collapse: collapse;
+    margin: 1em;
 }
 
 td,
@@ -148,3 +163,5 @@ th {
 td {
     background-color: white;
 }
+
+/*END CALENDAR------------------*/
