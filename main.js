@@ -1,7 +1,7 @@
 // DOM CONTENT LOADED CODE ---------------------------------------------------------------------
 $(document).ready(function () {
     $('#addToDoButton').on('click', addTask)
-    $('#viewMyToDos').on('click', viewAllTasks)
+    $('#showMeAllToDosButton').on('click', viewAllTasks)
     // $('markAsCompleteButton').on('click', )
     // $('editButton').on('click', )
     // $('deleteButton').on('click', )
@@ -12,23 +12,24 @@ $(document).ready(function () {
     //Not working at the moment yikes
 
     //VIEW MY TODOS
-    /* $("document").on("pagebeforeshow", "viewMyToDos", function (event) {
-        viewAllTasks()
-     }) */
+    // $("document").on("pagebeforeshow", "viewMyToDos", function (event) {
+    //     //viewAllTasks()
 
-    /*
+    // })
+
+
    //VIEW DETAILS PAGE
-   $(document).on("pagebeforeshow", "#viewToDoDetails", function (event) {
-       let localParm = localStorage.getItem('parm');
-       let localID = GetArrayPointer(localParm);
+//    $(document).on("pagebeforeshow", "#viewToDoDetails", function (event) {
+//        let localParm = localStorage.getItem('parm');
+//        let localID = GetArrayPointer(localParm);
 
-       allTasksArray = JSON.parse(localStorage.getItem('allTasksArray'));
+//        allTasksArray = JSON.parse(localStorage.getItem('allTasksArray'));
 
-       document.getElementById("detailsName").innerHTML = "TO-DO Item: " + allTasksArray[localID].task;
-       document.getElementById("detailsCategory").innerHTML = "Category: " + allTasksArray[localID].categoryName;
-       document.getElementById("detailsPriority").innerHTML = "Priority Level: " + allTasksArray[localID].priorityName;
-       document.getElementById("detailsDescription").innerHTML = "Description: " + allTasksArray[localID].description;
-   })*/
+//        document.getElementById("detailsName").innerHTML = "TO-DO Item: " + allTasksArray[localID].task;
+//        document.getElementById("detailsCategory").innerHTML = "Category: " + allTasksArray[localID].categoryName;
+//        document.getElementById("detailsPriority").innerHTML = "Priority Level: " + allTasksArray[localID].priorityName;
+//        document.getElementById("detailsDescription").innerHTML = "Description: " + allTasksArray[localID].description;
+//    })
 
 
 
@@ -43,16 +44,16 @@ $(document).ready(function () {
 //CREATION OF TASK OBJECT AND ARRAYS -----------------------------------------------------------------------
 //ALL TASK ARRAY, DAY ARRAY & TO-DO LIST OBJECT CREATION
 let allTasksArray = [] //array that holds all tasks for printing entire task list without day and without having to navigate subArrays
-let dayArray = [] //subArrays created in calendar section
+let toDoArray = [] //subArrays created in calendar section
+let selectedDay
 
-function task(task, category, categoryName, priority, priorityName) {
-    this.ID = Math.random().toString(16).slice(5)
+function task(task, category, priority, day) {
     this.task = task
     this.category = category
-    this.categoryName = categoryName
     this.priority = priority
-    this.priorityName = priorityName
+    this.day = day
     this.description = ''
+    this.id = Math.random().toString(16).slice(5)
 }
 
 //Need day selection reset caller for toDo/addToDo page changes
@@ -66,25 +67,18 @@ function addTask() {
         let toDo = inputCheck(),
             category = categoryCheck(),
             radioID = radioCheck(),
-            priorityName
+            priority
 
-        let radio
-        if (radioID === 'radioVeryHigh') radio = 1, priorityName = 'Very High Priority'
-        else if (radioID === 'radioHigh') radio = 2, priorityName = 'High Priority'
-        else if (radioID === 'radioMedium') radio = 3, priorityName = 'Medium Priority'
-        else    /*radioID === 'radioLow' */   radio = 4, priorityName = 'Low Priority'
-
-        let categoryName
-        if (category = 1) categoryName = 'Work'
-        else if (category = 2) categoryName = 'School'
-        else if (category = 3) categoryName = 'Home'
-        else categoryName = 'None'
+        if (radioID === 'radioVeryHigh') priority = 1//, priorityName = 'Very High Priority'
+        else if (radioID === 'radioHigh') priority = 2//, priorityName = 'High Priority'
+        else if (radioID === 'radioMedium') priority = 3//, priorityName = 'Medium Priority'
+        else    /*radioID === 'radioLow' */   priority = 4//, priorityName = 'Low Priority'
 
         //DAYS [TasksForSpecifiedDay]
-        dayArray[selectedDay].push(new task(toDo, category, categoryName, radio, priorityName))
+        toDoArray.push(new task(toDo, category, priority, selectedDay))
         //All TASKS ARRAY 
-        allTasksArray.push(new task(toDo, category, categoryName, radio, priorityName))
-        console.log(dayArray)
+        //allTasksArray.push(new task(toDo, category, categoryName, radio, priorityName))
+        console.log(toDoArray)
 
         //RADIO, CATEGORY DROP DOWN & TEXT BOX RESET
         $(`#${radioID}`).attr('checked', false)
@@ -114,7 +108,7 @@ function radioCheck() {
 function inputCheck() {
     input = ($('#toDoInput').val()).trim() //Verifying input isn't just whitespace
     if (input) return input
-    throw new Error("Error: Please enter a valid task!")
+    throw new Error("Please enter a valid task!")
 }
 
 //CATEGORY SELECTION CHECK
@@ -136,10 +130,15 @@ function calendarCheck() {
 //CALENDAR DAY CLICKED , VIEW TASKS BY DAY
 function viewMyTasksByDay() {
     //let toDoArray = sortArray() //Sorting array from highest to low priority
-    let toDoArray = dayArray[selectedDay]
+    let found = false
 
-    if (!toDoArray.length > 0) $("#toDoDisplay").append(`There are no tasks to display for day ${selectedDay + 1}`)
-    else for (let i = 0; i < toDoArray.length; i++) { printTasks(toDoArray[i].task, i, toDoArray[i].priority) } //Text, Index, Priority
+    for (let i=0; i<toDoArray.length;i++){
+        if (selectedDay === i.day) {
+            printTasks(toDoArray.task, i, toDoArray.priority)
+            found = true
+        }
+    }
+    if (!found) $("#toDoDisplay").append(`There are no tasks to display for day ${selectedDay}`)
 }
 
 
@@ -151,15 +150,19 @@ function viewAllTasks() {
     let theList = document.getElementById("toDoDisplay");
     theList.innerHTML = " ";
 
-    if (!allTasksArray.length > 0) $("#toDoDisplay").append(`There are no TO-DOs to display`)
+    if (toDoArray.length === 0) $("#toDoDisplay").append(`There are no TO-DOs to display`)
     else {
-        let theList = document.getElementById("toDoDisplay");
-        allTasksArray.forEach(function (element) {
-            var list = document.createElement('li');
-            list.setAttribute("data-parm", element.ID);
-            list.innerHTML = element.task + " " + element.category + " " + element.priority;
-            $("#toDoDisplay").append(list);
-        })
+        //toDoArray.forEach(function (i) 
+        for (let i=0;i<toDoArray.length;i++){
+            console.log(toDoArray[i].task)
+            printTasks(toDoArray[i].task, i, toDoArray[i].priority)
+
+            // let list = document.createElement('li');
+            // list.setAttribute("data-parm", element.id);
+            // list.innerHTML = element.task + " " + element.category + " " + element.priority;
+            // $("#toDoDisplay").append(list);
+            // console.log(element)
+        }
     }
 }
 
@@ -196,10 +199,8 @@ function Delete(itemToDelete) {
     allTasksArray.splice(arrayPointer, 1);
 }*/
 
-
-
-//Uncompleted Task printing
-function printIncompleteTasks(text, index, priority) {
+//Task Printer
+function printTasks(text, index, priority) {
     //Radio Button
     let elementRadio = $(`<input type='radio'>`)//Setting HTML
     $(elementRadio).attr('id', `taskRadio${index}`)//Setting ID
@@ -213,34 +214,10 @@ function printIncompleteTasks(text, index, priority) {
     let elementLabel = $(`<label>${text}</label>`)//Setting HTML & Text
     $(elementLabel).attr('for', `taskRadio${index}`)//Linking to Radio Button
     $(elementLabel).attr('id', `taskLabel${index}`)//Setting ID
-    $(elementLabel).css('color', `${colorPicker(priority)}`)//Setting Color
-
-    $("#incompleteTaskDisplay").append("•&emsp;", $(elementLabel), $(elementRadio), " -- Task Completed? <br>")//Printing to Screen
-}
-
-//Task Printer
-function printTasks(text, index, priority) {
-    //Radio Button
-    let elementRadio = $(`<input type='radio'>`)//Setting HTML
-    $(elementRadio).attr('id', `taskRadio${index}`)//Setting ID
-
-    $(elementRadio).on('click', function () {//Attaching Event Handler
-        dayArray[selectedDay][index].priority = 5
-        $(`#taskLabel${index}`).css('color', colorPicker(5))
-    })
-
-    //Affiliated Label
-    let elementLabel = $(`<label>${text}</label>`)//Setting HTML & Text
-    $(elementLabel).attr('for', `taskRadio${index}`)//Linking to Radio Button
-    $(elementLabel).attr('id', `taskLabel${index}`)//Setting ID
     $(elementLabel).css('color', colorPicker(priority))//Setting Color
 
     $("#toDoDisplay").append("•&emsp;", $(elementLabel), $(elementRadio), " -- Task Completed? <br>")//Printing to Screen
 }
-
-
-// if (!toDoArray.length > 0) $("#toDoDisplay").append(`There are no tasks to display `)
-// else for (let i = 0; i < toDoArray.length; i++) { printTasks(toDoArray[i].task, i, //toDoArray[i].priority) } //Text, Index, Priority
 
 //Array Sorter
 //function sortArray(){return toDoArray.sort((p1, p2) => (p1.priority > p2.priority) ? 1 : (p1.priority < p2.priority) ? -1 : 0)}
@@ -252,6 +229,13 @@ function colorPicker(priority) {
     else if (priority === 3) return 'rgb(239, 168, 3)'
     else if (priority === 4) return 'green'
     else if (priority === 5) return 'darkgreen' //For Complete
+}
+
+function categoryPicker(category) {
+    if (category === 1) return 'Work'
+    else if (category === 2) return 'School'
+    else if (category === 3) return 'Home'
+    else if (category === 4) return 'None'
 }
 
 
@@ -270,13 +254,13 @@ function createCalendar(month) {
     while (d.getMonth() == month) {
         let date = d.getDate()
         table += `<td class='calendarDays' id='${date}day'>` + date + '</td>'
-        dayArray.push(new Array)
+        //toDoArray.push(new Array)
 
         if (getDay(d) % 7 == 6) table += '</tr><tr>' // Sunday, last day of week - newline
 
         d.setDate(d.getDate() + 1);
     }
-    console.log(dayArray)
+    console.log(toDoArray)
 
     // Add spaces after last days of month for the last row // 29 30 31 * * * *
     if (getDay(d) != 0) {
@@ -296,18 +280,19 @@ function getDay(date) { // Get day number from 0 (monday) to 6 (sunday)
 createCalendar(d.getMonth())
 
 //Calender Select
-let selectedDay
 $('.calendar .calendarDays').click(function () {
     calenderResetSelection()
 
-    selectedDay = parseInt(this.id) - 1
+    selectedDay = parseInt(this.id)
     $(this).css('background-color', 'aqua')
+    console.log(selectedDay)
 
     try { viewMyTasksByDay() } catch { }
 })
 
 //Calender Reset
 function calenderResetSelection() {
+    selectedDay = 0
     $('.calendarDays').css('background-color', 'white') //Add event click for page change
     $("#toDoDisplay").html("")
 }
