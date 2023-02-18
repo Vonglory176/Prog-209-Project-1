@@ -7,16 +7,14 @@ $(document).ready(function () {
     // $('deleteButton').on('click', )
     //$('#showMeAllToDosButton').on('click', viewAllTasks)
 
-
     //PAGE BEFORE SHOW CODE -----------------------------------------------
-    //Not working at the moment yikes
-
-    //VIEW MY TODOS
     // $("document").on("pagebeforeshow", "viewMyToDos", function (event) {
-    //     //viewAllTasks()
-
+    //     viewAllTasks()
     // })
 
+    $("#viewMyToDos").on("pagebeforeshow", function () {
+        viewAllTasks()
+    })
 
    //VIEW DETAILS PAGE
 //    $(document).on("pagebeforeshow", "#viewToDoDetails", function (event) {
@@ -31,20 +29,15 @@ $(document).ready(function () {
 //        document.getElementById("detailsDescription").innerHTML = "Description: " + allTasksArray[localID].description;
 //    })
 
-
-
     //END Of PAGE BEFORE SHOW CODE -----------------------------
-
-
 });
 //END Of DOM CONTENT LOADED CODE ---------------------------------------------------------------------
 
 
-
 //CREATION OF TASK OBJECT AND ARRAYS -----------------------------------------------------------------------
-//ALL TASK ARRAY, DAY ARRAY & TO-DO LIST OBJECT CREATION
-let allTasksArray = [] //array that holds all tasks for printing entire task list without day and without having to navigate subArrays
-let toDoArray = [] //subArrays created in calendar section
+
+//TASK ARRAY, TO-DO LIST OBJECT & CALENDAR SELECT CREATION
+let toDoArray = []
 let selectedDay
 
 function task(task, category, priority, day) {
@@ -55,10 +48,6 @@ function task(task, category, priority, day) {
     this.description = ''
     this.id = Math.random().toString(16).slice(5)
 }
-
-//Need day selection reset caller for toDo/addToDo page changes
-//Convert Highest Priority and Completed Tasks code
-//Convert Array Sorter code
 
 //FUNCTION ADDING ITEMS TO TO-DO LIST
 function addTask() {
@@ -74,10 +63,9 @@ function addTask() {
         else if (radioID === 'radioMedium') priority = 3//, priorityName = 'Medium Priority'
         else    /*radioID === 'radioLow' */   priority = 4//, priorityName = 'Low Priority'
 
-        //DAYS [TasksForSpecifiedDay]
+        //TaskArray
         toDoArray.push(new task(toDo, category, priority, selectedDay))
-        //All TASKS ARRAY 
-        //allTasksArray.push(new task(toDo, category, categoryName, radio, priorityName))
+
         console.log(toDoArray)
 
         //RADIO, CATEGORY DROP DOWN & TEXT BOX RESET
@@ -93,9 +81,7 @@ function addTask() {
 //END OF CREATION OF TASK OBJECT AND ARRAYS -----------------------------------------------------------------------
 
 
-
 //VALIDATION FUNCTIONS ----------------------------------------------------------------------
-
 
 //RADIO BUTTON CHECK
 function radioCheck() {
@@ -123,9 +109,7 @@ function calendarCheck() {
     throw new Error("Please select a date for your task!")
 }
 
-
 //VALIDATION FUNCTIONS END --------------------------------------------------------------
-
 
 //CALENDAR DAY CLICKED , VIEW TASKS BY DAY
 function viewMyTasksByDay() {
@@ -140,7 +124,6 @@ function viewMyTasksByDay() {
     }
     if (!found) $("#toDoDisplay").append(`There are no tasks to display for day ${selectedDay}`)
 }
-
 
 //VIEW ALL TASKS --  POPULATE THE DISPLAY WHEN USER NAVIGATES TO VIEW MY TODO
 //Can you please not re-vamp my function too much - otherwise I get lost in how all the JS is working and then cannot really do much
@@ -237,7 +220,6 @@ function categoryPicker(category) {
     else if (category === 3) return 'Home'
     else if (category === 4) return 'None'
 }
-
 
 //CALENDAR CODE -----------------------------------------------------------
 let d = new Date();
