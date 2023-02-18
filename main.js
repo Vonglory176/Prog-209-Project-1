@@ -14,20 +14,35 @@ $(document).ready(function () {
 
     $("#viewMyToDos").on("pagebeforeshow", function () {
         viewAllTasks()
+        console.log(toDoArray)
     })
 
-   //VIEW DETAILS PAGE
-//    $(document).on("pagebeforeshow", "#viewToDoDetails", function (event) {
-//        let localParm = localStorage.getItem('parm');
-//        let localID = GetArrayPointer(localParm);
+    $("#ViewToDoDetails").on("pagebeforeshow", function () {
+        console.log("we are in the page before show details func")
+        for (let i = 0; i < toDoArray.length; i++) {
+            if (selectedID === toDoArray[i].id) {
+                let task = toDoArray[i]
+                $("#details").append(`Task Name: ${task.task}`)
+                $("#details").append(`Category: ${task.category}`)
+                $("#details").append(`Priority: ${task.priority}`)
+                $("#details").append(`Task Description: ${task.description}`)
+                break;
+            }
+        }
+    })
 
-//        allTasksArray = JSON.parse(localStorage.getItem('allTasksArray'));
+    //VIEW DETAILS PAGE
+    //    $(document).on("pagebeforeshow", "#viewToDoDetails", function (event) {
+    //        let localParm = localStorage.getItem('parm');
+    //        let localID = GetArrayPointer(localParm);
 
-//        document.getElementById("detailsName").innerHTML = "TO-DO Item: " + allTasksArray[localID].task;
-//        document.getElementById("detailsCategory").innerHTML = "Category: " + allTasksArray[localID].categoryName;
-//        document.getElementById("detailsPriority").innerHTML = "Priority Level: " + allTasksArray[localID].priorityName;
-//        document.getElementById("detailsDescription").innerHTML = "Description: " + allTasksArray[localID].description;
-//    })
+    //        allTasksArray = JSON.parse(localStorage.getItem('allTasksArray'));
+
+    //        document.getElementById("detailsName").innerHTML = "TO-DO Item: " + allTasksArray[localID].task;
+    //        document.getElementById("detailsCategory").innerHTML = "Category: " + allTasksArray[localID].categoryName;
+    //        document.getElementById("detailsPriority").innerHTML = "Priority Level: " + allTasksArray[localID].priorityName;
+    //        document.getElementById("detailsDescription").innerHTML = "Description: " + allTasksArray[localID].description;
+    //    })
 
     //END Of PAGE BEFORE SHOW CODE -----------------------------
 });
@@ -39,6 +54,7 @@ $(document).ready(function () {
 //TASK ARRAY, TO-DO LIST OBJECT & CALENDAR SELECT CREATION
 let toDoArray = []
 let selectedDay
+let selectedID
 
 function task(task, category, priority, day) {
     this.task = task
@@ -116,7 +132,7 @@ function viewMyTasksByDay() {
     //let toDoArray = sortArray() //Sorting array from highest to low priority
     let found = false
 
-    for (let i=0; i<toDoArray.length;i++){
+    for (let i = 0; i < toDoArray.length; i++) {
         if (selectedDay === i.day) {
             printTasks(toDoArray.task, i, toDoArray.priority)
             found = true
@@ -129,6 +145,8 @@ function viewMyTasksByDay() {
 //Can you please not re-vamp my function too much - otherwise I get lost in how all the JS is working and then cannot really do much
 //Initially wrote this to use for pagebeforeshow when user clicks the view to do page it would populate all the tasks, couldn't figure that out so made it into a button for now
 function viewAllTasks() {
+    console.log("testtest")
+
     //clear the display
     let theList = document.getElementById("toDoDisplay");
     theList.innerHTML = " ";
@@ -136,7 +154,7 @@ function viewAllTasks() {
     if (toDoArray.length === 0) $("#toDoDisplay").append(`There are no TO-DOs to display`)
     else {
         //toDoArray.forEach(function (i) 
-        for (let i=0;i<toDoArray.length;i++){
+        for (let i = 0; i < toDoArray.length; i++) {
             console.log(toDoArray[i].task)
             printTasks(toDoArray[i].task, i, toDoArray[i].priority)
 
@@ -194,12 +212,17 @@ function printTasks(text, index, priority) {
     })
 
     //Affiliated Label
-    let elementLabel = $(`<label>${text}</label>`)//Setting HTML & Text
+    let elementLabel = $(`<label><a href='#viewToDoDetails'>${text}</a></label>`)//Setting HTML & Text
     $(elementLabel).attr('for', `taskRadio${index}`)//Linking to Radio Button
     $(elementLabel).attr('id', `taskLabel${index}`)//Setting ID
     $(elementLabel).css('color', colorPicker(priority))//Setting Color
 
     $("#toDoDisplay").append("•&emsp;", $(elementLabel), $(elementRadio), " -- Task Completed? <br>")//Printing to Screen
+    $(`taskLabel${index}`).on("click", function () {
+        selectedID = toDoArray[index].id
+        console.log(selectedID)
+        console.log("we are in the print tasks func")
+    })
 }
 
 //Array Sorter
