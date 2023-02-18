@@ -17,15 +17,15 @@ $(document).ready(function () {
         console.log(toDoArray)
     })
 
-    $("#ViewToDoDetails").on("pagebeforeshow", function () {
+    $("#viewToDoDetails").on("pagebeforeshow", function () {
         console.log("we are in the page before show details func")
         for (let i = 0; i < toDoArray.length; i++) {
             if (selectedID === toDoArray[i].id) {
                 let task = toDoArray[i]
-                $("#details").append(`Task Name: ${task.task}`)
-                $("#details").append(`Category: ${task.category}`)
-                $("#details").append(`Priority: ${task.priority}`)
-                $("#details").append(`Task Description: ${task.description}`)
+                $("#details").append(`Task Name: ${task.task}<br>`)
+                $("#details").append(`Category: ${task.category}<br>`)
+                $("#details").append(`Priority: ${task.priority}<br>`)
+                $("#details").append(`Task Description: ${task.description}<br>`)
                 break;
             }
         }
@@ -212,13 +212,13 @@ function printTasks(text, index, priority) {
     })
 
     //Affiliated Label
-    let elementLabel = $(`<label><a href='#viewToDoDetails'>${text}</a></label>`)//Setting HTML & Text
+    let elementLabel = $(`<label><a id="taskAnchor${index}" href='#viewToDoDetails'>${text}</a></label>`)//Setting HTML & Text
     $(elementLabel).attr('for', `taskRadio${index}`)//Linking to Radio Button
     $(elementLabel).attr('id', `taskLabel${index}`)//Setting ID
     $(elementLabel).css('color', colorPicker(priority))//Setting Color
 
     $("#toDoDisplay").append("•&emsp;", $(elementLabel), $(elementRadio), " -- Task Completed? <br>")//Printing to Screen
-    $(`taskLabel${index}`).on("click", function () {
+    $(`#taskAnchor${index}`).on("click", function () {
         selectedID = toDoArray[index].id
         console.log(selectedID)
         console.log("we are in the print tasks func")
