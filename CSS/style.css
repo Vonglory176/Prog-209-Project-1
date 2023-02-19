@@ -115,6 +115,11 @@ li {
     margin-left: auto;
     margin-right: auto;
     background-color: yellow;
+    white-space: nowrap;
+}
+
+#toDoDisplay label {
+    cursor: pointer;
 }
 
 #toDoDisplay {
@@ -163,5 +168,7 @@ th {
 td {
     background-color: white;
 }
+
+.calendarDays {cursor: pointer;}
 
 /*END CALENDAR------------------*/

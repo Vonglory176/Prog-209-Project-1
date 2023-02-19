@@ -2,49 +2,30 @@
 $(document).ready(function () {
     $('#addToDoButton').on('click', addTask)
     $('#showMeAllToDosButton').on('click', viewAllTasks)
-    // $('markAsCompleteButton').on('click', )
-    // $('editButton').on('click', )
-    // $('deleteButton').on('click', )
-    //$('#showMeAllToDosButton').on('click', viewAllTasks)
+    // $('#markAsCompleteButton').on('click', )
+    // $('#editButton').on('click', )
+    $('#deleteButton').on('click', deleteTask)
 
     //PAGE BEFORE SHOW CODE -----------------------------------------------
-    // $("document").on("pagebeforeshow", "viewMyToDos", function (event) {
-    //     viewAllTasks()
-    // })
 
     $("#viewMyToDos").on("pagebeforeshow", function () {
         viewAllTasks()
+        $("#details").html('')
         console.log(toDoArray)
     })
 
     $("#viewToDoDetails").on("pagebeforeshow", function () {
-        console.log("we are in the page before show details func")
-        for (let i = 0; i < toDoArray.length; i++) {
-            if (selectedID === toDoArray[i].id) {
-                let task = toDoArray[i]
-                $("#details").append(`Task Name: ${task.task}<br>`)
-                $("#details").append(`Category: ${task.category}<br>`)
-                $("#details").append(`Priority: ${task.priority}<br>`)
-                $("#details").append(`Task Description: ${task.description}<br>`)
-                break;
-            }
-        }
+
+        let index = findIndex()
+        let task = toDoArray[index]
+        $("#details").append(`Task Name: ${task.task}<br>`)
+        $("#details").append(`Category: ${task.category}<br>`)
+        $("#details").append(`Priority: ${task.priority}<br>`)
+        $("#details").append(`Task Description: ${task.description}<br>`)
     })
 
-    //VIEW DETAILS PAGE
-    //    $(document).on("pagebeforeshow", "#viewToDoDetails", function (event) {
-    //        let localParm = localStorage.getItem('parm');
-    //        let localID = GetArrayPointer(localParm);
-
-    //        allTasksArray = JSON.parse(localStorage.getItem('allTasksArray'));
-
-    //        document.getElementById("detailsName").innerHTML = "TO-DO Item: " + allTasksArray[localID].task;
-    //        document.getElementById("detailsCategory").innerHTML = "Category: " + allTasksArray[localID].categoryName;
-    //        document.getElementById("detailsPriority").innerHTML = "Priority Level: " + allTasksArray[localID].priorityName;
-    //        document.getElementById("detailsDescription").innerHTML = "Description: " + allTasksArray[localID].description;
-    //    })
-
     //END Of PAGE BEFORE SHOW CODE -----------------------------
+
 });
 //END Of DOM CONTENT LOADED CODE ---------------------------------------------------------------------
 
@@ -62,6 +43,7 @@ function task(task, category, priority, day) {
     this.priority = priority
     this.day = day
     this.description = ''
+    this.complete = false
     this.id = Math.random().toString(16).slice(5)
 }
 
@@ -129,7 +111,6 @@ function calendarCheck() {
 
 //CALENDAR DAY CLICKED , VIEW TASKS BY DAY
 function viewMyTasksByDay() {
-    //let toDoArray = sortArray() //Sorting array from highest to low priority
     let found = false
 
     for (let i = 0; i < toDoArray.length; i++) {
@@ -142,10 +123,7 @@ function viewMyTasksByDay() {
 }
 
 //VIEW ALL TASKS --  POPULATE THE DISPLAY WHEN USER NAVIGATES TO VIEW MY TODO
-//Can you please not re-vamp my function too much - otherwise I get lost in how all the JS is working and then cannot really do much
-//Initially wrote this to use for pagebeforeshow when user clicks the view to do page it would populate all the tasks, couldn't figure that out so made it into a button for now
 function viewAllTasks() {
-    console.log("testtest")
 
     //clear the display
     let theList = document.getElementById("toDoDisplay");
@@ -153,16 +131,9 @@ function viewAllTasks() {
 
     if (toDoArray.length === 0) $("#toDoDisplay").append(`There are no TO-DOs to display`)
     else {
-        //toDoArray.forEach(function (i) 
         for (let i = 0; i < toDoArray.length; i++) {
             console.log(toDoArray[i].task)
-            printTasks(toDoArray[i].task, i, toDoArray[i].priority)
-
-            // let list = document.createElement('li');
-            // list.setAttribute("data-parm", element.id);
-            // list.innerHTML = element.task + " " + element.category + " " + element.priority;
-            // $("#toDoDisplay").append(list);
-            // console.log(element)
+            printTasks(toDoArray[i].task, i, toDoArray[i].priority, toDoArray[i].complete)
         }
     }
 }
@@ -183,50 +154,54 @@ function showHighPriorityTasks() {
     })
 }*/
 
-/*
-//ITERATING THROUGH ARRAY TO FIND ARRRAY ELEMENT W MATCHING ID
-function GetArrayPointer(localID) {
-    for (let i = 0; i < allTasksArray.length; i++) {
-        if (localId === allTasksArray[i].ID) {
-            return i;
-        }
-    }
-}*/
-
-/*
-//DELETE ITEM 
-function Delete(itemToDelete) {
-    let arrayPointer = GetArrayPointer(itemToDelete);
-    allTasksArray.splice(arrayPointer, 1);
-}*/
-
 //Task Printer
-function printTasks(text, index, priority) {
+function printTasks(text, index, priority, complete) { //CHANGE RADIO TO CHECKBOX !!!
     //Radio Button
-    let elementRadio = $(`<input type='radio'>`)//Setting HTML
+    let elementRadio = $(`<input type='checkbox'>`)//Setting HTML
     $(elementRadio).attr('id', `taskRadio${index}`)//Setting ID
+    if (complete) $(elementRadio).prop( "checked", true )//Checking Checkbox
 
     $(elementRadio).on('click', function () {//Attaching Event Handler
-        toDoArray[index].priority = 5
-        $(`#taskLabel${index}`).css('color', colorPicker(5))
+
+        if (toDoArray[index].complete === false) {
+            toDoArray[index].complete = true
+            $(`#taskLabel${index}`).css('color', colorPicker('complete'))
+        }
+
+        else if (toDoArray[index].complete === true){
+            toDoArray[index].complete = false
+            $(`#taskLabel${index}`).css('color', colorPicker(toDoArray[index].priority))
+        }     
     })
 
     //Affiliated Label
-    let elementLabel = $(`<label><a id="taskAnchor${index}" href='#viewToDoDetails'>${text}</a></label>`)//Setting HTML & Text
+    let elementLabel = $(`<label>${text}</label>`)//Setting HTML & Text
     $(elementLabel).attr('for', `taskRadio${index}`)//Linking to Radio Button
     $(elementLabel).attr('id', `taskLabel${index}`)//Setting ID
-    $(elementLabel).css('color', colorPicker(priority))//Setting Color
+    $(elementLabel).css('color', colorPicker(complete ? 'complete' : priority))//Setting Color
 
     $("#toDoDisplay").append("•&emsp;", $(elementLabel), $(elementRadio), " -- Task Completed? <br>")//Printing to Screen
-    $(`#taskAnchor${index}`).on("click", function () {
+    $(`#taskLabel${index}`).on("click", function () {
         selectedID = toDoArray[index].id
-        console.log(selectedID)
-        console.log("we are in the print tasks func")
+        window.location.href = "#viewToDoDetails"
     })
 }
 
 //Array Sorter
 //function sortArray(){return toDoArray.sort((p1, p2) => (p1.priority > p2.priority) ? 1 : (p1.priority < p2.priority) ? -1 : 0)}
+
+//DELETE ITEM 
+function deleteTask() {
+    toDoArray.splice(findIndex(), 1);
+    console.log(toDoArray)
+
+}
+
+function findIndex () {
+    for (let i = 0; i<toDoArray.length; i++){
+        if (toDoArray[i].id === selectedID) return i
+    }
+}
 
 //Color Code Based on Priority System
 function colorPicker(priority) {
@@ -234,7 +209,7 @@ function colorPicker(priority) {
     else if (priority === 2) return 'rgb(255, 68, 0)'
     else if (priority === 3) return 'rgb(239, 168, 3)'
     else if (priority === 4) return 'green'
-    else if (priority === 5) return 'darkgreen' //For Complete
+    else return 'darkgreen' //For Complete
 }
 
 function categoryPicker(category) {
