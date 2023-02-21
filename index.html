@@ -26,7 +26,7 @@
     <div data-role="page" id="home">
 
         <!-- HOME PAGE Header -->
-        <div data-role="header" data-theme='c'>
+        <div data-role="header" data-theme='c' id="homeHeader">
             <h1></h1>
 
             <!-- Navbar -->
@@ -39,8 +39,7 @@
         </div>
 
         <!-- HOME PAGE Home Content -->
-        <div data-role="content" data-theme='c'
-            style="background-image: url(CSS/Images/sky1.jpg) ; background-size: cover; " ;>
+        <div data-role="content" data-theme='c' id="homeContent">
 
             <div class="itemContainer">
                 <br><br>
@@ -59,7 +58,7 @@
         </div>
 
         <!-- HOME PAGE Footer -->
-        <div data-role="footer" data-theme='c'>
+        <div data-role="footer" data-theme='c' id="homeFooter">
             <h3>Copyright 2023 by Skyler Conley & Alesia Cameron</h3>
         </div>
 
@@ -74,7 +73,7 @@
     <div data-role="page" id="addAToDo">
 
         <!-- ADD A TO DO Header -->
-        <div data-role="header" data-theme='c'>
+        <div data-role="header" data-theme='c' id="addAToDoHeader">
             <h1> </h1>
 
             <!-- Navbar -->
@@ -87,12 +86,13 @@
         </div>
 
         <!-- ADD A TO DO Home Content -->
-        <div data-role="content" data-theme='c'
-            style="background-image: url(CSS/Images/blanknotebook2.png) ; background-size: cover; " ;>
+        <div data-role="content" data-theme='c' id="addAToDoContent">
             <br>
-            <div class="itemContainer"><br><br>
+            <div class="itemContainer" id="addAToDoItemContainer"><br><br>
 
-                <div class="calendar" id="addToDoCalendar"></div>
+                <div id="leftOfToDoInputBox">
+                    <div class="calendar" id="addToDoCalendar"></div>
+                </div>
 
                 <div id="toDoInputBox">
                     <!-- TEXT INPUT FOR LIST ITEM -->
@@ -143,7 +143,7 @@
         </div>
 
         <!-- ADD A TO DO Footer -->
-        <div data-role="footer" data-theme='c'>
+        <div data-role="footer" data-theme='c' id="addAToDoFooter">
             <h3>Copyright 2023 by Skyler Conley & Alesia Cameron</h3>
         </div>
     </div>
@@ -152,7 +152,7 @@
     <div data-role="page" id="viewMyToDos">
 
         <!-- VIEW MY TO DO'S Header -->
-        <div data-role="header" data-theme='c'>
+        <div data-role="header" data-theme='c' id="viewMyToDosHeader">
             <h1></h1>
 
             <!-- Navbar -->
@@ -165,8 +165,7 @@
         </div>
 
         <!-- VIEW MY TO DO'S Content -->
-        <div data-role="content" data-theme='c'
-            style="background-image: url(CSS/Images/paper.jpg) ; background-size: cover ;">
+        <div data-role="content" data-theme='c'id="viewMyToDosContent">
 
             <div id="viewMyToDosButtonContainer">
                 <!-- Order by priority buttons -->
@@ -192,7 +191,7 @@
         </div>
 
         <!-- VIEW MY TO DO'S Footer -->
-        <div data-role="footer" data-theme='c'>
+        <div data-role="footer" data-theme='c' id="viewMyToDosFooter">
             <h3>Copyright 2023 by Skyler Conley & Alesia Cameron</h3>
         </div>
     </div>
@@ -203,7 +202,7 @@
     <div data-role="page" id="viewToDoDetails">
 
         <!-- VIEW TO DO DETAILS Header -->
-        <div data-role="header" data-theme='c'>
+        <div data-role="header" data-theme='c' id="viewToDoDetailsHeader">
             <h1> </h1>
 
             <!-- Navbar -->
@@ -218,8 +217,7 @@
 
 
         <!-- VIEW TO DO DETAILS Content -->
-        <div data-role="content" data-theme='c'
-            style="background-image: url(CSS/Images/pencilyellow.png) ; background-size: cover; " ;>
+        <div data-role="content" data-theme='c' id="viewToDoDetailsContent">
             <div class="itemContainer">
                 <h2>Let's take a closer look at your task...</h2> <br>
                 <h3></h3><br>
@@ -232,17 +230,15 @@
                 <div id="detailsDescription"></div> -->
                 <br>
                 <div id="viewDetailsButtonContainer">
-                    <!-- ADD ITEM TO LIST BUTTON -->
-                    <div id="markAsComplete"><input type="button" value="Mark As Complete" id="markAsCompleteButton">
-                    </div>
-                    <div id="edit"><input type="button" value="Edit" id="editButton"></div>
-                    <div id="delete"><a href="#viewMyToDos"><input type="button" value="Delete" id="deleteButton"></a></div>
+                    <div id="edit"><input type="button" value="Edit" id="editTaskButton"></div>
+                    <div id="markAsComplete"><input type="button" value="Mark As Complete" id="completeTaskButton"></div>
+                    <div id="delete"><a href="#viewMyToDos"><input type="button" value="Delete" id="deleteTaskButton"></a></div>
                 </div>
             </div>
         </div>
 
         <!-- VIEW TO DO DETAILS Footer -->
-        <div data-role="footer" data-theme='c'>
+        <div data-role="footer" data-theme='c' id="viewToDoDetailsFooter">
             <h3>Copyright 2023 by Skyler Conley & Alesia Cameron</h3>
         </div>
     </div>
