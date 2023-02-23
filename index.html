@@ -25,45 +25,47 @@
     <!-- HOME PAGE =============================================================================================== -->
     <div data-role="page" id="home">
 
-        <!-- HOME PAGE Header -->
-        <div data-role="header" data-theme='c' id="homeHeader">
-            <h1></h1>
+        <div class="container">
 
-            <!-- Navbar -->
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="#addAToDo">Add A To Do</a></li>
-                    <li><a href="#viewMyToDos">View My To Do's</a></li>
-                </ul>
+            <!-- HOME PAGE Header -->
+            <div data-role="header" data-theme='c' class="header">
+                <h1></h1>
+
+                <!-- Navbar -->
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#addAToDo">Add A To Do</a></li>
+                        <li><a href="#viewMyToDos">View My To Do's</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- HOME PAGE Home Content -->
+            <div data-role="content" data-theme='c' id="homeContent">
+
+                <div class="itemContainer">
+                    <br><br>
+                    <h1>Welcome to your To-Do List!</h1>
+                    This is the home page
+                    <br><br>
+                    <h2>--Dashboard--</h2>
+                    You have completed X To-Do items today <br><br>
+                    You have X outstanding items on your list
+                    <br><br>
+
+                    <a href="a href=#addAToDo">I want to add a To-Do Item</a><br><br>
+                    <a href="a href=#viewMyToDos">Take me to my To-Do List</a><br><br>
+
+                </div>
+            </div>
+
+            <!-- HOME PAGE Footer -->
+            <div data-role="footer" data-theme='c' class="footer">
+                <h3>Copyright 2023 by Skyler Conley & Alesia Cameron</h3>
             </div>
         </div>
-
-        <!-- HOME PAGE Home Content -->
-        <div data-role="content" data-theme='c' id="homeContent">
-
-            <div class="itemContainer">
-                <br><br>
-                <h1>Welcome to your To-Do List!</h1>
-                This is the home page
-                <br><br>
-                <h2>--Dashboard--</h2>
-                You have completed X To-Do items today <br>
-                You have X outstanding items on your list
-                <br><br>
-
-                <a href="a href=#addAToDo">I want to add a To-Do Item</a><br>
-                <a href="a href=#viewMyToDos">Take me to my To-Do List</a><br>
-
-            </div>
-        </div>
-
-        <!-- HOME PAGE Footer -->
-        <div data-role="footer" data-theme='c' id="homeFooter">
-            <h3>Copyright 2023 by Skyler Conley & Alesia Cameron</h3>
-        </div>
-
     </div>
-    </div>
+
 
 
 
@@ -88,7 +90,7 @@
         <!-- ADD A TO DO Home Content -->
         <div data-role="content" data-theme='c' id="addAToDoContent">
             <br>
-            <div class="itemContainer" id="addAToDoItemContainer"><br><br>
+            <div id="addAToDoItemContainer"><br><br>
 
                 <div id="leftOfToDoInputBox">
                     <div class="calendar" id="addToDoCalendar"></div>
@@ -165,7 +167,7 @@
         </div>
 
         <!-- VIEW MY TO DO'S Content -->
-        <div data-role="content" data-theme='c'id="viewMyToDosContent">
+        <div data-role="content" data-theme='c' id="viewMyToDosContent">
 
             <div id="viewMyToDosButtonContainer">
                 <!-- Order by priority buttons -->
@@ -231,8 +233,10 @@
                 <br>
                 <div id="viewDetailsButtonContainer">
                     <div id="edit"><input type="button" value="Edit" id="editTaskButton"></div>
-                    <div id="markAsComplete"><input type="button" value="Mark As Complete" id="completeTaskButton"></div>
-                    <div id="delete"><a href="#viewMyToDos"><input type="button" value="Delete" id="deleteTaskButton"></a></div>
+                    <div id="markAsComplete"><input type="button" value="Mark As Complete" id="completeTaskButton">
+                    </div>
+                    <div id="delete"><a href="#viewMyToDos"><input type="button" value="Delete"
+                                id="deleteTaskButton"></a></div>
                 </div>
             </div>
         </div>

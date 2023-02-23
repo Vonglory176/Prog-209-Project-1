@@ -1,6 +1,13 @@
-a {text-transform: uppercase;}
+a {
+    text-transform: uppercase;
+}
 
-h1, h2, label, input {font-family: 'Roboto Condensed', sans-serif;}
+h1,
+h2,
+label,
+input {
+    font-family: 'Roboto Condensed', sans-serif;
+}
 
 h1 {
     text-transform: uppercase;
@@ -9,19 +16,25 @@ h1 {
     text-shadow: none !important;
 }
 
-h3, li {
+h3,
+li {
     text-transform: uppercase;
     font-size: 1em !important;
 }
 
-label.headerLabel { font-size: 20px; }
+label.headerLabel {
+    font-size: 20px;
+}
 
 label.priorityLabel {
     color: white !important;
     letter-spacing: 2px;
 }
 
-ul, li { font-size: 15px; }
+ul,
+li {
+    font-size: 15px;
+}
 
 /* .image {
     display: block;
@@ -29,38 +42,63 @@ ul, li { font-size: 15px; }
     margin-right: auto;
 } */
 
-.itemContainer {
-    width: 40%;
+.header,
+.footer {}
+
+
+/* HOME PAGE --------------------------------------------*/
+.container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#home {
+    background-image: url("../CSS/Images/workplace3.jpg");
+    background-size: cover;
+}
+
+#homeContent {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* .itemContainer {
+    width: 60%;
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
+#home {
+    width: 40%;
+    top: 5%;
+    left: 30%;
+}
 
-/* HOME PAGE --------------------------------------------*/
 #homeContent {
     background-image: url("../CSS/Images/sky1.jpg");
     background-size: cover;
-}
+}*/
 
 /*ADD TASK PAGE -----------------------------------------*/
 #addAToDoContent {
-    background-image: url("../CSS/Images/floor2.png"); 
+    background-image: url("../CSS/Images/sky2lighter.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 #addAToDoItemContainer {
-    background-image: url("../CSS/Images/blanknotebook5.png"); 
+    background-image: url("../CSS/Images/blanknotebook4.png");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     width: 1000px;
     height: 580px;
-    display:flex;
+    display: flex;
     justify-content: left;
-    
+
     margin-left: auto;
     margin-right: auto;
     padding-top: 15px;
@@ -74,7 +112,9 @@ ul, li { font-size: 15px; }
     padding-right: 55px;
 }
 
-#toDoInputBox { width: 420px; }
+#toDoInputBox {
+    width: 420px;
+}
 
 #addAToDoDiv {
     width: 30%;
@@ -90,7 +130,7 @@ ul, li { font-size: 15px; }
 
 /*VIEW TO DO PAGE ---------------------------------------*/
 #viewMyToDosContent {
-    background-image: url("../CSS/Images/paper.jpg"); 
+    background-image: url("../CSS/Images/paper.jpg");
     background-size: cover;
 }
 
@@ -139,17 +179,23 @@ ul, li { font-size: 15px; }
     white-space: nowrap;
 }
 
-#toDoDisplay label { cursor: pointer; }
+#toDoDisplay label {
+    cursor: pointer;
+}
 
-#toDoDisplay { margin-left: 28px; }
+#toDoDisplay {
+    margin-left: 28px;
+}
 
 /*VIEW DETAILS PAGE START -------------------------------*/
 #viewToDoDetailsContent {
-    background-image: url("../CSS/Images/pencilyellow.png"); 
+    background-image: url("../CSS/Images/pencilyellow.png");
     background-size: cover;
 }
 
-#viewDetailsButtonContainer { display: flex; }
+#viewDetailsButtonContainer {
+    display: flex;
+}
 
 /*CALENDAR-----------------------------------------------*/
 table {
@@ -157,7 +203,8 @@ table {
     margin: 1em;
 }
 
-td, th {
+td,
+th {
     border: 1px solid black;
     padding: 3px;
     text-align: center;
@@ -168,7 +215,12 @@ th {
     background-color: #E6E6E6;
 }
 
-td { background-color: white; }
+td {
+    background-color: white;
+}
 
-.calendarDays { cursor: pointer; }
+.calendarDays {
+    cursor: pointer;
+}
+
 /*END CALENDAR-------------------------------------------*/
