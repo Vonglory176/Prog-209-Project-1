@@ -36,60 +36,101 @@ li {
     font-size: 15px;
 }
 
-/* .image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-} */
-
-.header,
-.footer {}
-
-
-/* HOME PAGE --------------------------------------------*/
-.container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-#home {
-    background-image: url("../CSS/Images/workplace3.jpg");
-    background-size: cover;
-}
-
-#homeContent {
-    background-color: rgba(255, 255, 255, 0.6);
-}
-
-/* .itemContainer {
-    width: 60%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#home {
-    width: 40%;
-    top: 5%;
-    left: 30%;
-}
-
-#homeContent {
-    background-image: url("../CSS/Images/sky1.jpg");
-    background-size: cover;
-}*/
-
-/*ADD TASK PAGE -----------------------------------------*/
-#addAToDoContent {
-    background-image: url("../CSS/Images/sky2lighter.jpg");
+#home,
+#addAToDo,
+#viewMyToDos {
+    background-image: url("../CSS/Images/desktopaqua.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-#addAToDoItemContainer {
+.container {
+    position: fixed;
+    height: auto;
+    width: 1000px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url("../CSS/Images/openspiralnotebook.png");
+    background-size: cover;
+
+}
+
+
+/* HOME PAGE -------------------------------------------*/
+
+#containerHome {
+    background: transparent;
+    align-items: center;
+    width: 75%;
+    height: 50%;
+    margin-top: 7%;
+}
+
+#stickyNote {
+    align-self: center;
+    width: 1000px;
+    height: 600px;
+
+    background-image: url("../CSS/Images/stickynote.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 15px;
+    padding-bottom: 10px;
+
+    text-align: center;
+
+}
+
+#homeContent {
+    background: transparent;
+    max-height: 80% !important;
+}
+
+#home .header {
+    background: transparent;
+    border: none;
+}
+
+#home .footer {
+    background: transparent;
+    border: none;
+}
+
+/*HOME PAGE---------------------------------------------*/
+
+
+/*ADD A PAGE -----------------------------------------*/
+#addAToDoContent {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding-left: 12%;
+}
+
+
+/*#addAToDoItemContainer {
+    width: 100%;
+    max-height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+
+    margin-left: 5%;
+    margin-right: auto;
+
+    text-align: center;
+    background: transparent;
+} */
+
+
+/*#addAToDoItemContainer {
     background-image: url("../CSS/Images/blanknotebook4.png");
     background-size: contain;
     background-position: center;
@@ -105,49 +146,62 @@ li {
     padding-bottom: 10px;
 
     text-align: center;
+}*/
+
+#addAToDoTopContainer {
+    display: flex;
+    flex-direction: row;
+    background-color: blueviolet;
 }
 
 #leftOfToDoInputBox {
-    width: 230px;
-    padding-right: 55px;
+    width: 50%;
+    margin: 2%;
+    background-color: yellow;
 }
 
 #toDoInputBox {
-    width: 420px;
+    width: 50%;
+    margin: 2%;
+    background-color: aqua;
+}
+
+#addAToDoBottomContainer {
+    display: inline-block;
+    padding: 5%;
+    background-color: cornflowerblue;
 }
 
 #addAToDoDiv {
-    width: 30%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
 }
 
 #radio {
-    width: 75%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
 }
+
+
 
 /*VIEW TO DO PAGE ---------------------------------------*/
 #viewMyToDosContent {
-    background-image: url("../CSS/Images/paper.jpg");
-    background-size: cover;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding-left: 10%;
 }
 
 .viewToDoItemContainer {
-    width: 70%;
-    height: 100%;
     display: flex;
     margin-left: auto;
     margin-right: auto;
-    padding: .5em;
     background-color: aqua;
-    align-items: center;
 }
 
 #viewMyToDosButtonContainer {
-    width: 70%;
-    height: 100%;
+    /*width: 70%;
+    height: 100%;*/
     display: flex;
     justify-content: space-around;
     margin-left: auto;
@@ -157,26 +211,24 @@ li {
 }
 
 #leftSideViewToDoContainer {
-    width: 40%;
-    height: 100%;
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
-    padding: .5em;
-    background-color: blue;
+    padding: .3em;
+    background-color: rgb(96, 96, 248);
     justify-content: center;
     align-items: center;
 }
 
 #rightSideViewToDoContainer,
 #toDoDisplay {
-    width: 40%;
-    height: 100%;
+
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
     background-color: yellow;
     white-space: nowrap;
+    align-self: flex-start;
 }
 
 #toDoDisplay label {
@@ -184,10 +236,14 @@ li {
 }
 
 #toDoDisplay {
-    margin-left: 28px;
+    margin-left: auto;
 }
 
-/*VIEW DETAILS PAGE START -------------------------------*/
+/*VIEW TO DO PAGE ---------------------------------------*/
+
+
+
+/*VIEW DETAILS PAGE -------------------------------*/
 #viewToDoDetailsContent {
     background-image: url("../CSS/Images/pencilyellow.png");
     background-size: cover;
@@ -196,6 +252,10 @@ li {
 #viewDetailsButtonContainer {
     display: flex;
 }
+
+/*VIEW DETAILS PAGE -------------------------------*/
+
+
 
 /*CALENDAR-----------------------------------------------*/
 table {
@@ -223,4 +283,4 @@ td {
     cursor: pointer;
 }
 
-/*END CALENDAR-------------------------------------------*/
+/*CALENDAR-------------------------------------------*/
