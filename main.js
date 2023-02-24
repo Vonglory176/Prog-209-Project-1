@@ -21,6 +21,7 @@ $(document).ready(function () {
     })
 
     $("#viewToDoDetails").on("pagebeforeshow", function () {
+        $("#details").html('')
         let task = toDoArray[findIndex()]
         if (task) {
             $("#details").append(`Task Name: ${task.task}                         <br>`)
@@ -39,6 +40,7 @@ $(document).ready(function () {
 let toDoArray = []
 let selectedDay
 let selectedID
+let selectedPrintDay
 
 function task(day, task, category, priority) {
     this.day = day
@@ -90,7 +92,7 @@ function inputCheck() {
 }
 
 function categoryCheck() {
-    if ($('#category').val() === 0) throw new Error("Please select a category!")
+    if (parseInt($('#category').val()) === 0) return 4 //"None"
     return parseInt($('#category').val())
 }
 
@@ -163,6 +165,13 @@ function viewMyTasksByDay() {
 
 //Task Printer
 function printTasks(text, index, priority, complete) {
+    if (selectedPrintDay !== toDoArray[index].day) {
+        selectedPrintDay = toDoArray[index].day
+        $("#toDoDisplay").append(`<h3> Tasks for Day ${selectedPrintDay} </h3>`)
+    }
+
+    if (index+1 === toDoArray.length) selectedPrintDay = 0
+
     //Checkbox Creation
     let elementCheckbox = $(`<input id='taskCheckbox${index}' type='checkbox'>`)//Setting HTML & ID
     if (complete) $(elementCheckbox).prop( "checked", true )//Checking Checkbox (If Applicable)

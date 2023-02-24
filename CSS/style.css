@@ -1,3 +1,10 @@
+body {
+    background-image: url("../CSS/Images/desktopaqua.jpg");
+    background-position: auto; 
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 a {
     text-transform: uppercase;
 }
@@ -40,14 +47,22 @@ li {
 #addAToDo,
 #viewMyToDos {
     background-image: url("../CSS/Images/desktopaqua.jpg");
-    background-position: center;
+    background-position: auto; 
     background-size: cover;
     background-repeat: no-repeat;
 }
 
+/* @media screen and (max-width: 1000px) {
+    #home,
+    #addAToDo,
+    #viewMyToDos {
+    background-size: auto;
+}
+} */
+
 .container {
     position: fixed;
-    height: auto;
+    height: 1000px;
     width: 1000px;
     top: 50%;
     left: 50%;
@@ -59,14 +74,6 @@ li {
 
 
 /* HOME PAGE -------------------------------------------*/
-
-#containerHome {
-    background: transparent;
-    align-items: center;
-    width: 75%;
-    height: 50%;
-    margin-top: 7%;
-}
 
 #stickyNote {
     align-self: center;
@@ -81,13 +88,20 @@ li {
     display: flex;
     justify-content: center;
 
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 15px;
-    padding-bottom: 10px;
+    /* position: fixed;
+    top: calc((100% - 600px)/2);
+    left: calc((100% - 1000px)/2); */
 
     text-align: center;
 
+}
+
+#containerHome {
+    background: transparent;
+    align-items: center;
+    /* width: 75%;
+    height: 50%; */
+    margin-top: 7%;
 }
 
 #homeContent {
@@ -114,40 +128,6 @@ li {
     padding-left: 12%;
 }
 
-
-/*#addAToDoItemContainer {
-    width: 100%;
-    max-height: 70%;
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-
-    margin-left: 5%;
-    margin-right: auto;
-
-    text-align: center;
-    background: transparent;
-} */
-
-
-/*#addAToDoItemContainer {
-    background-image: url("../CSS/Images/blanknotebook4.png");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 1000px;
-    height: 580px;
-    display: flex;
-    justify-content: left;
-
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 15px;
-    padding-bottom: 10px;
-
-    text-align: center;
-}*/
-
 #addAToDoTopContainer {
     display: flex;
     flex-direction: row;
@@ -167,7 +147,10 @@ li {
 }
 
 #addAToDoBottomContainer {
-    display: inline-block;
+    width: 400px;
+    text-align: center;
+    margin-left: 18%;
+    margin-right: auto;
     padding: 5%;
     background-color: cornflowerblue;
 }
@@ -194,8 +177,7 @@ li {
 
 .viewToDoItemContainer {
     display: flex;
-    margin-left: auto;
-    margin-right: auto;
+    height: 745px;
     background-color: aqua;
 }
 
@@ -204,16 +186,14 @@ li {
     height: 100%;*/
     display: flex;
     justify-content: space-around;
-    margin-left: auto;
-    margin-right: auto;
     background-color: green;
     align-items: center;
 }
 
 #leftSideViewToDoContainer {
     display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
+    /* margin-left: auto;
+    margin-right: auto; */
     padding: .3em;
     background-color: rgb(96, 96, 248);
     justify-content: center;
