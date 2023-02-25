@@ -1,13 +1,4 @@
-body {
-    background-image: url("../CSS/Images/desktopaqua.jpg");
-    background-position: auto; 
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-a {
-    text-transform: uppercase;
-}
+a { text-transform: uppercase; }
 
 h1,
 h2,
@@ -43,39 +34,72 @@ li {
     font-size: 15px;
 }
 
-#home,
-#addAToDo,
-#viewMyToDos {
+#homePage,
+#addAToDoPage,
+#viewMyToDosPage,
+#viewToDoDetailsPage {
     background-image: url("../CSS/Images/desktopaqua.jpg");
     background-position: auto; 
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-/* @media screen and (max-width: 1000px) {
-    #home,
-    #addAToDo,
-    #viewMyToDos {
-    background-size: auto;
-}
-} */
 
-.container {
+.basicMenuContainer {
+    background-image: url("../CSS/Images/openspiralnotebook.png");
+    background-size: cover;
+    
+    height: 800px;
+    width: 800px;
+    
     position: fixed;
-    height: 1000px;
-    width: 1000px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-image: url("../CSS/Images/openspiralnotebook.png");
-    background-size: cover;
-
+    
 }
 
+/* @media screen and (max-width: 1000px) {
+    .basicMenuContainer {
+        height: 800px !important;
+        width: 800px !important;
+    }
+} */
 
-/* HOME PAGE -------------------------------------------*/
+.stickyNoteMenuContainer {
+    background-image: url("../CSS/Images/stickynote.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 
-#stickyNote {
+    width: 1000px;
+    height: 600px;
+
+    position: fixed;
+    top: 10%; /* calc((100% - 600px)/2); */
+    left: calc((100% - 1000px)/2);
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    text-align: center;
+}
+
+/* #addToDoCalendar {
+    display: none;
+}
+
+#dayButton:hover #addToDoCalendar{
+    display:block;
+    position: absolute;
+} */
+
+
+
+/* HOME PAGE START -------------------------------------------*/
+
+/* #stickyNote {
     align-self: center;
     width: 1000px;
     height: 600px;
@@ -88,71 +112,48 @@ li {
     display: flex;
     justify-content: center;
 
-    /* position: fixed;
+    position: fixed;
     top: calc((100% - 600px)/2);
-    left: calc((100% - 1000px)/2); */
+    left: calc((100% - 1000px)/2);
 
     text-align: center;
 
-}
+} */
 
-#containerHome {
+/* #containerHome {
     background: transparent;
     align-items: center;
-    /* width: 75%;
-    height: 50%; */
+    width: 75%;
+    height: 50%; 
     margin-top: 7%;
-}
+}  */
 
-#homeContent {
-    background: transparent;
-    max-height: 80% !important;
-}
-
-#home .header {
+#homeHeader, 
+#homeContent,
+#homeFooter {
     background: transparent;
     border: none;
 }
 
-#home .footer {
-    background: transparent;
-    border: none;
-}
+#homeFooter {padding-bottom: 30px;}
 
-/*HOME PAGE---------------------------------------------*/
+/*HOME PAGE END ---------------------------------------------*/
 
 
-/*ADD A PAGE -----------------------------------------*/
+/*ADD A PAGE START -----------------------------------------*/
 #addAToDoContent {
     background-color: rgba(255, 255, 255, 0.6);
     padding-left: 12%;
 }
 
-#addAToDoTopContainer {
-    display: flex;
-    flex-direction: row;
-    background-color: blueviolet;
-}
-
-#leftOfToDoInputBox {
-    width: 50%;
-    margin: 2%;
-    background-color: yellow;
-}
-
-#toDoInputBox {
-    width: 50%;
-    margin: 2%;
-    background-color: aqua;
-}
-
-#addAToDoBottomContainer {
-    width: 400px;
+#priorityPicker, #toDoInputBox, #categoryPicker, #dayPicker{
+    width: 70%;
     text-align: center;
-    margin-left: 18%;
+    margin-left: 13%;
     margin-right: auto;
-    padding: 5%;
-    background-color: cornflowerblue;
+    margin-top: 1%;
+    margin-bottom: 2%;
+    /* background-color: cornflowerblue; */
 }
 
 #addAToDoDiv {
@@ -166,10 +167,10 @@ li {
     margin-left: auto;
     margin-right: auto;
 }
+/*ADD A PAGE END -----------------------------------------*/
 
 
-
-/*VIEW TO DO PAGE ---------------------------------------*/
+/*VIEW TO DO PAGE START ---------------------------------------*/
 #viewMyToDosContent {
     background-color: rgba(255, 255, 255, 0.6);
     padding-left: 10%;
@@ -218,29 +219,34 @@ li {
 #toDoDisplay {
     margin-left: auto;
 }
-
-/*VIEW TO DO PAGE ---------------------------------------*/
-
+/*VIEW TO DO PAGE END ---------------------------------------*/
 
 
-/*VIEW DETAILS PAGE -------------------------------*/
-#viewToDoDetailsContent {
+/*VIEW DETAILS PAGE START -------------------------------*/
+/* #viewToDoDetailsContent {
     background-image: url("../CSS/Images/pencilyellow.png");
     background-size: cover;
+} */
+
+#viewToDoDetailsHeader,
+#viewToDoDetailsContent,
+#viewToDoDetailsFooter {
+    background: transparent;
+    border: none;
 }
 
 #viewDetailsButtonContainer {
     display: flex;
 }
-
-/*VIEW DETAILS PAGE -------------------------------*/
-
+/*VIEW DETAILS PAGE END -------------------------------*/
 
 
-/*CALENDAR-----------------------------------------------*/
+
+/*CALENDAR START -----------------------------------------------*/
 table {
     border-collapse: collapse;
     margin: 1em;
+    font-size: large;
 }
 
 td,
@@ -263,4 +269,4 @@ td {
     cursor: pointer;
 }
 
-/*CALENDAR-------------------------------------------*/
+/*CALENDAR END -------------------------------------------*/

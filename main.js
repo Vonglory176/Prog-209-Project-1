@@ -14,23 +14,29 @@ $(document).ready(function () {
     $('#deleteTaskButton').on('click', deleteTask)
 
     //PAGE BEFORE SHOW CODE START ----------------------------------------------------------------------
-    $("#viewMyToDos").on("pagebeforeshow", function () {
+    $("#viewMyToDosPage").on("pagebeforeshow", function () {
         //sortArray() -- FOR USE WITH DAY/HEADER SEPARATION
         viewAllTasks()
         console.log(toDoArray)
     })
 
-    $("#viewToDoDetails").on("pagebeforeshow", function () {
+    $("#viewToDoDetailsPage").on("pagebeforeshow", function () {
         $("#details").html('')
         let task = toDoArray[findIndex()]
         if (task) {
-            $("#details").append(`Task Name: ${task.task}                         <br>`)
-            $("#details").append(`Category:  ${categoryTranslator(task.category)} <br>`)
-            $("#details").append(`Priority:  ${priorityTranslator(task.priority)} <br>`)
-            $("#details").append(`Day:       ${task.day}                          <br>`)
-            $("#details").append(`Task Description: ${task.description}           <br>`)
+            // $("#details").append(`Task Name: ${task.task}                         <br>`)
+            // $("#details").append(`Category:  ${categoryTranslator(task.category)} <br>`)
+            // $("#details").append(`Priority:  ${priorityTranslator(task.priority)} <br>`)
+            // $("#details").append(`Day:       ${task.day}                          <br>`)
+            // $("#details").append(`Task Description: ${task.description}           <br>`)
+
+            $("#detailsTaskName").val(task.task)
+            //Add Category and Priority!!
+            $("#detailsDescription").val(task.description)
+
+
         }
-        else $("#details").html("Error: No Task selected for viewing!") //Prevents error on refresh
+        //else $("#details").html("Error: No Task selected for viewing!") //Prevents error on refresh
     })
     //PAGE BEFORE SHOW CODE END ------------------------------------------------------------------------
 });
@@ -200,7 +206,7 @@ function printTasks(text, index, priority, complete) {
     //Label Click Event-Handler
     $(`#taskLabel${index}`).on("click", function () {
         selectedID = toDoArray[index].id
-        window.location.href = "#viewToDoDetails"
+        window.location.href = "#viewToDoDetailsPage"
     })
 }
 
