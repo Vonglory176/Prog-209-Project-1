@@ -214,7 +214,7 @@ function viewAllTasks() {
     //Verifying that toDoArray contains a task and if so, sending each task to be printed
     if (toDoArray.length === 0) printNoTasksMessage("")
     else for (let i = 0; i < toDoArray.length; i++) printTasks(toDoArray[i].task, i, toDoArray[i].priority, toDoArray[i].complete)
-    selectedPrintDay = 0
+    selectedPrintDay = 0 //Header Var Reset on Finish
 }
 
 
@@ -243,7 +243,7 @@ function showHighPriorityTasks() {
         }
     }
     if (!found) printNoTasksMessage("high priority")
-    selectedPrintDay = 0
+    selectedPrintDay = 0 //Header Var Reset on Finish
 }
 
 
@@ -266,7 +266,7 @@ function viewCompletedTasks() {
         }
     }
     if (!found) printNoTasksMessage("completed")
-    selectedPrintDay = 0
+    selectedPrintDay = 0 //Header Var Reset on Finish
 }
 
 //Calendar-Day Clicked
@@ -282,7 +282,7 @@ function viewMyTasksByDay() {
         }
     }
     if (!found) printNoTasksMessage("")
-    selectedPrintDay = 0
+    selectedPrintDay = 0 //Header Var Reset on Finish
 }
 
 //No-Task Message Printer
@@ -293,7 +293,7 @@ function printNoTasksMessage(messageType) {
 
 //Task Printer
 function printTasks(text, index, priority, complete) {
-    console.log(selectedDay)
+    //Header Generation
     if (selectedPrintDay !== toDoArray[index].day) {
         selectedPrintDay = toDoArray[index].day
         $("#toDoDisplay").append(`<h3> Tasks for Day ${selectedPrintDay} </h3>`)
