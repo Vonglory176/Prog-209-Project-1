@@ -8,6 +8,8 @@ $(document).ready(function () {
     $('#showMeHighPriorityOnlyButton').on('click', sortArray)
     $('#showMeCompletedToDosButton').on('click', viewCompletedTasks)
 
+    $("#toDoDisplay").css("height", $("#viewMyToDosContent").height()) //Setting display height
+
     //ViewToDoDetails Page
     $('#completeTaskButton').on('click', completeTask)
     $('#editTaskButton').on('click', editTask)
@@ -32,7 +34,7 @@ $(document).ready(function () {
 
             $("#detailsTaskName").val(task.task)
             //Add Category and Priority!!
-            $("#detailsDescription").val(task.description)
+            $("#detailsTaskDescription").val(task.description)
 
 
         }
@@ -43,7 +45,93 @@ $(document).ready(function () {
 //DOM CONTENT LOADED CODE END --------------------------------------------------------------------------
 
 //VARIABLE LIBRARY
-let toDoArray = []
+let toDoArray = [] 
+
+//FOR DEBUGGING, RESET ARRAY BEFORE SUBMISSION !!!!!
+// let toDoArray = [
+//     {
+//         "day": 1,
+//         "task": "asdasd",
+//         "category": 2,
+//         "priority": 1,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361707589
+//     },
+//     {
+//         "day": 2,
+//         "task": "asdasd",
+//         "category": 1,
+//         "priority": 2,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361711420
+//     },
+//     {
+//         "day": 3,
+//         "task": "efsdf",
+//         "category": 4,
+//         "priority": 2,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361714967
+//     },
+//     {
+//         "day": 4,
+//         "task": "fdgfdgfdg",
+//         "category": 4,
+//         "priority": 3,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361717765
+//     },
+//     {
+//         "day": 5,
+//         "task": "sdfsdf",
+//         "category": 4,
+//         "priority": 3,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361724273
+//     },
+//     {
+//         "day": 6,
+//         "task": "sdfsdf",
+//         "category": 4,
+//         "priority": 2,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361731739
+//     },
+//     {
+//         "day": 7,
+//         "task": "ewdfsf",
+//         "category": 4,
+//         "priority": 4,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361735527
+//     },
+//     {
+//         "day": 8,
+//         "task": "etretret",
+//         "category": 4,
+//         "priority": 2,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361742230
+//     },
+//     {
+//         "day": 10,
+//         "task": "fdfgdfg",
+//         "category": 4,
+//         "priority": 2,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361745733
+//     }
+// ]
+
 let selectedDay
 let selectedID
 let selectedPrintDay
@@ -111,12 +199,13 @@ function calendarCheck() {
 //'#viewMyToDos' PAGE FUNCTIONS START ------------------------------------------------------------------
 //'#showMeAllToDosButton' Clicked.. (Or '#viewMyToDos' Page Loaded)
 function viewAllTasks() {
+    console.log("View All Clicked!")
     //Display Reset
     $("#toDoDisplay").html('')
     calenderResetSelection()
 
     //Verifying that toDoArray contains a task and if so, sending each task to be printed
-    if (toDoArray.length === 0) $("#toDoDisplay").append(`There are no tasks to display.`)
+    if (toDoArray.length === 0) printNoTasksMessage("")
     else for (let i = 0; i < toDoArray.length; i++) printTasks(toDoArray[i].task, i, toDoArray[i].priority, toDoArray[i].complete)
 }
 
@@ -138,8 +227,9 @@ function showHighPriorityTasks() {
 
 //'#showMeCompletedToDosButton' Clicked
 function viewCompletedTasks () {
-    $("#toDoDisplay").html('') //Display Reset
-    
+    console.log("View Completed Clicked!")
+     $("#toDoDisplay").html('') //Display Reset
+
     let found = false
     for (let i=0;i<toDoArray.length;i++) {
         //If Calendar-Day selected, only print for selected day
@@ -154,11 +244,14 @@ function viewCompletedTasks () {
             found = true
         }
     }
-    if (!found) $("#toDoDisplay").append("There are no completed tasks to display", selectedDay?` for day ${selectedDay}.`:'.')
+    if (!found) printNoTasksMessage("completed")
 }
 
 //Calendar-Day Clicked
 function viewMyTasksByDay() {
+    console.log("View By Day Clicked!")
+    $("#toDoDisplay").html('') //Display Reset
+
     let found = false
     for (let i = 0; i < toDoArray.length; i++) {
         if (selectedDay === toDoArray[i].day) {
@@ -166,7 +259,13 @@ function viewMyTasksByDay() {
             found = true
         }
     }
-    if (!found) $("#toDoDisplay").append(`There are no tasks to display for day ${selectedDay}.`)
+    if (!found) printNoTasksMessage("")
+}
+
+//No-Task Message Printer
+function printNoTasksMessage(messageType) {
+    $("#toDoDisplay").html("") //Display Reset
+    $("#toDoDisplay").append(`<h3>There are no ${messageType} tasks to display${selectedDay?` for day ${selectedDay}`:''}.</h3>`)
 }
 
 //Task Printer
@@ -258,9 +357,10 @@ function findIndex () { for (let i = 0;i<toDoArray.length;i++) if (toDoArray[i].
 //CALENDAR GENERATION START ----------------------------------------------------------------------------
 let d = new Date();
 function createCalendar(month) {
-
+    
     //Table Header
-    let table = '<table><tr><th>MO</th><th>TU</th><th>WE</th><th>TH</th><th>FR</th><th>SA</th><th>SU</th></tr><tr>';
+    let monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+    let table = `<h3>${monthNames[month]}</h3><table><tr><th>MO</th><th>TU</th><th>WE</th><th>TH</th><th>FR</th><th>SA</th><th>SU</th></tr><tr>`;
     d.setDate(1)
 
     // First row from Monday till the first day of the month // * * * 1  2  3  4
@@ -292,6 +392,7 @@ function getDay(date) { // Get day number from 0 (monday) to 6 (sunday)
     if (day == 0) day = 7 // Make Sunday (0) the last day
     return day - 1
 }
+
 createCalendar(d.getMonth())
 //CALENDAR GENERATION END ------------------------------------------------------------------------------
 
@@ -303,7 +404,7 @@ $('.calendar .calendarDays').click(function () {
     $(this).css('background-color', 'aqua')
     console.log(selectedDay)
 
-    if (window.location.hash === '#viewMyToDos') viewMyTasksByDay() //Only calling if on '#viewMyToDos' page
+    if (window.location.hash === '#viewMyToDosPage') viewMyTasksByDay() //Only calling if on '#viewMyToDos' page
     //try { viewMyTasksByDay() } catch { }
 })
 

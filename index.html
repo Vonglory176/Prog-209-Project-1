@@ -63,7 +63,7 @@
 
             <!-- ADD A TO DO Header -->
             <div data-role="header" data-theme='c' id="addAToDoHeader">
-                <h1></h1>
+                <h1>Add a To-Do</h1>
 
                 <!-- Navbar -->
                 <div data-role="navbar">
@@ -95,10 +95,11 @@
                         </select>
                     </div>
 
-                    <div id="dayPicker">
+                    <div class="dayPicker" id="toDoDayPicker">
                         <label class="headerLabel">Please select a day for this task</label>
                         <input type="button" value="Select Day" id="dayButton">
-                        <div class="calendar" id="addToDoCalendar"></div>
+                        <div class="calendar dropDownCalendar" id="addToDoCalendar">
+                        </div>
                     </div>
 
                     <!-- //PRIORITY PICKER RADIO BUTTONS -->
@@ -146,7 +147,7 @@
 
             <!-- VIEW MY TO DO'S Header -->
             <div data-role="header" data-theme='c' id="viewMyToDosHeader">
-                <h1></h1>
+                <h1>View Your To-Do List</h1>
 
                 <!-- Navbar -->
                 <div data-role="navbar" data-theme='c'>
@@ -160,26 +161,27 @@
             <!-- VIEW MY TO DO'S Content -->
             <div data-role="content" data-theme='c' id="viewMyToDosContent">
 
-                <div id="viewMyToDosButtonContainer">
-                    <!-- Order by priority buttons -->
+                <!-- <div id="viewMyToDosButtonContainer">
                     <input type="button" class="button" value="View All To-Do's" id="showMeAllToDosButton">
                     <input type="button" class="button" value="High Priority To-Do's" id="showMeHighPriorityOnlyButton">
                     <input type="button" class="button" value="Completed To-Do's" id="showMeCompletedToDosButton">
-                    <br><br><br>
-                </div>
-
+                </div> -->
+                
                 <div class="viewToDoItemContainer">
-                    <br><br><br>
-
+                    
                     <div id="leftSideViewToDoContainer">
                         <p>Click day to view tasks for that day</p>
-                        <div class="calendar" id="toDoCalendar">
-                        </div> <br><br><!--CALENDAR TESTING-->
+                        <div class="calendar" id="toDoCalendar"></div> 
+                        
+                        <input type="button" class="button" value="View All To-Do's" id="showMeAllToDosButton">
+                        <input type="button" class="button" value="High Priority To-Do's" id="showMeHighPriorityOnlyButton">
+                        <input type="button" class="button" value="Completed To-Do's" id="showMeCompletedToDosButton">
                     </div>
 
-                    <div id="rightSideViewToDoContainer">
-                        <div id="toDoDisplay"></div>
-                    </div>
+                    <div id="toDoDisplay"></div>
+                    <!-- <div id="rightSideViewToDoContainer">
+                        
+                    </div> -->
                 </div>
             </div>
 
@@ -200,61 +202,57 @@
 
             <!-- VIEW TO DO DETAILS Header -->
             <div data-role="header" data-theme='c' id="viewToDoDetailsHeader">
-                <h1> </h1>
-    
-                <!-- Navbar -->
-                <!-- <div data-role="navbar" data-theme='c'>
-                    <ul>
-                        <li><a href="#homePage">Home</a></li>
-                        <li><a href="#viewMyToDosPage">View My To Do's</a></li>
-                        <li><a href="#addAToDoPage">Add a To Do</a></li>
-                    </ul>
-                </div> -->
+                <h1>Let's take a closer look at your task...</h1>
             </div>
     
     
             <!-- VIEW TO DO DETAILS Content -->
             <div data-role="content" data-theme='c' id="viewToDoDetailsContent">
-                <div class="itemContainer">
-                    <h2>Let's take a closer look at your task...</h2>
-                    <div id="details"></div>
-                    
-                    <!-- Task -->
-                    <label for="taskName">Task Name:</label>
-                    <input type="text" name="taskName" id="detailsTaskName">
+                <div id="details"></div>
+                
+                <!-- Task -->
+                <label for="taskName">Task Name:</label>
+                <input type="text" name="taskName" id="detailsTaskName">
 
+                <div id="viewToDoDetailsDropDown">
                     <!-- Category -->
-                    <label class="headerLabel">Please select a category for this task</label>
-                    <select name="detailsCategory" id="detailsCategory">
-                        <option value="0">Work</option>
-                        <option value="1">School</option>
-                        <option value="2">Home</option>
-                        <option value="3">None</option>
-                    </select>
+                    <div>
+                        <label class="headerLabel">Task Category</label>
+                        <select name="detailsCategory" id="detailsTaskCategory">
+                            <option value="0">Work</option>
+                            <option value="1">School</option>
+                            <option value="2">Home</option>
+                            <option value="3">None</option>
+                        </select>
+                    </div>
+
+                    <div class="dayPicker" id="detailsDayPicker">
+                        <label class="headerLabel">Task Day</label>
+                        <input type="button" value="Select Day" id="dayButton">
+                        <div class="calendar dropDownCalendar" id="viewToDoDetailsCalendar">
+                        </div>
+                    </div>
 
                     <!-- Priority -->
-                    <label class="headerLabel">Please select a category for this task</label>
-                    <select name="detailsPriority" id="detailsPriority">
-                        <option value="0">Very High</option>
-                        <option value="1">High</option>
-                        <option value="2">Medium</option>
-                        <option value="3">Low</option>
-                    </select>
-
-                    <!-- Description -->
-                    <label for="detailsDescription">Task Description:</label>
-                    <input type="text" name="detailsDescription" id="detailsDescription">
-
-                    <!-- <div id="detailsName"></div>
-                    <div id="detailsCategory"></div>
-                    <div id="detailsPriority"></div>
-                    <div id="detailsDescription"></div> -->
-                    <br>
-                    <div id="viewDetailsButtonContainer">
-                        <div id="save"><a href="#viewMyToDosPage"><input type="button" value="Save" id="saveTaskButton"></a></div>
-                        <div id="back"><a href="#viewMyToDosPage"><input type="button" value="Back" id="backButton"></a></div>
-                        <div id="delete"><a href="#viewMyToDosPage"><input type="button" value="Delete" id="deleteTaskButton"></a></div>
+                    <div>
+                        <label class="headerLabel">Task Priority</label>
+                        <select name="detailsPriority" id="detailsTaskPriority">
+                            <option value="0">Very High</option>
+                            <option value="1">High</option>
+                            <option value="2">Medium</option>
+                            <option value="3">Low</option>
+                        </select>
                     </div>
+                </div>
+
+                <!-- Description -->
+                <label for="taskDescription">Task Description:</label>
+                <input type="text" name="taskDescription" id="detailsTaskDescription">
+
+                <div id="viewDetailsButtonContainer">
+                    <div id="save"><a href="#viewMyToDosPage"><input type="button" value="Save" id="saveTaskButton"></a></div>
+                    <div id="back"><a href="#viewMyToDosPage"><input type="button" value="Back" id="backButton"></a></div>
+                    <div id="delete"><a href="#viewMyToDosPage"><input type="button" value="Delete" id="deleteTaskButton"></a></div>
                 </div>
             </div>
     

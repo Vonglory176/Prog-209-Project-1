@@ -34,6 +34,10 @@ li {
     font-size: 15px;
 }
 
+select, option{
+    vertical-align:top;
+}
+
 #homePage,
 #addAToDoPage,
 #viewMyToDosPage,
@@ -86,47 +90,7 @@ li {
     text-align: center;
 }
 
-/* #addToDoCalendar {
-    display: none;
-}
-
-#dayButton:hover #addToDoCalendar{
-    display:block;
-    position: absolute;
-} */
-
-
-
 /* HOME PAGE START -------------------------------------------*/
-
-/* #stickyNote {
-    align-self: center;
-    width: 1000px;
-    height: 600px;
-
-    background-image: url("../CSS/Images/stickynote.png");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    display: flex;
-    justify-content: center;
-
-    position: fixed;
-    top: calc((100% - 600px)/2);
-    left: calc((100% - 1000px)/2);
-
-    text-align: center;
-
-} */
-
-/* #containerHome {
-    background: transparent;
-    align-items: center;
-    width: 75%;
-    height: 50%; 
-    margin-top: 7%;
-}  */
 
 #homeHeader, 
 #homeContent,
@@ -143,10 +107,16 @@ li {
 /*ADD A PAGE START -----------------------------------------*/
 #addAToDoContent {
     background-color: rgba(255, 255, 255, 0.6);
+    height: 630px;
     padding-left: 12%;
 }
 
-#priorityPicker, #toDoInputBox, #categoryPicker, #dayPicker{
+#addToDoCalendar {
+    margin-left: 13%;
+    top: 45%;
+}
+
+#priorityPicker, #toDoInputBox, #categoryPicker, #toDoDayPicker{
     width: 70%;
     text-align: center;
     margin-left: 13%;
@@ -156,13 +126,7 @@ li {
     /* background-color: cornflowerblue; */
 }
 
-#addAToDoDiv {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#radio {
+#addAToDoDiv, #radio {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
@@ -173,43 +137,34 @@ li {
 /*VIEW TO DO PAGE START ---------------------------------------*/
 #viewMyToDosContent {
     background-color: rgba(255, 255, 255, 0.6);
-    padding-left: 10%;
+    height: 630px;
+    padding-left: 12%;
+    overflow: hidden;
 }
 
 .viewToDoItemContainer {
     display: flex;
-    height: 745px;
-    background-color: aqua;
+    /* background-color: aqua; */
 }
 
-#viewMyToDosButtonContainer {
-    /*width: 70%;
-    height: 100%;*/
+/* #viewMyToDosButtonContainer {
     display: flex;
     justify-content: space-around;
     background-color: green;
     align-items: center;
-}
+} */
 
 #leftSideViewToDoContainer {
-    display: inline-block;
-    /* margin-left: auto;
-    margin-right: auto; */
-    padding: .3em;
-    background-color: rgb(96, 96, 248);
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+    /* background-color: rgb(96, 96, 248); */
 }
 
-#rightSideViewToDoContainer,
 #toDoDisplay {
-
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: yellow;
-    white-space: nowrap;
-    align-self: flex-start;
+    width: 100%;
+    overflow: auto;
+    justify-content: center;
+    text-align: center;
+    /* background-color: yellow; */
 }
 
 #toDoDisplay label {
@@ -228,16 +183,43 @@ li {
     background-size: cover;
 } */
 
+#viewToDoDetailsHeader h1 {
+    margin: 0 !important;
+}
+
+#viewToDoDetailsContent {
+    padding: 15px 150px 0px 150px;
+    text-align: center;
+}
+
+
+#viewToDoDetailsDropDown {
+    display: flex;
+    justify-content:space-evenly;
+}
+
+#viewToDoDetailsCalendar {
+    left: 36.5%;
+}
+
+#viewToDoDetailsTaskDescription, #viewToDoDetailsTaskName {
+    display:flex;
+}
+
 #viewToDoDetailsHeader,
 #viewToDoDetailsContent,
 #viewToDoDetailsFooter {
+    margin-left: 30px;
     background: transparent;
     border: none;
 }
 
 #viewDetailsButtonContainer {
     display: flex;
+    justify-content: center;
 }
+
+#viewToDoDetailsFooter {padding-bottom: 30px;}
 /*VIEW DETAILS PAGE END -------------------------------*/
 
 
@@ -267,6 +249,19 @@ td {
 
 .calendarDays {
     cursor: pointer;
+}
+
+.dayPicker .dropDownCalendar {
+    display: none;
+}
+
+.dayPicker:hover .dropDownCalendar, .dropDownCalendar:hover { /*Maybe change for on click, look for click highlighting?*/
+    display:block;
+    position: absolute;
+    z-index: 100;
+    background-color: white;
+    border: 1px;
+    border-style: solid;
 }
 
 /*CALENDAR END -------------------------------------------*/
