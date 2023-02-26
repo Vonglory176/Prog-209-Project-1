@@ -214,12 +214,12 @@ function viewAllTasks() {
     //Verifying that toDoArray contains a task and if so, sending each task to be printed
     if (toDoArray.length === 0) printNoTasksMessage("")
     else for (let i = 0; i < toDoArray.length; i++) printTasks(toDoArray[i].task, i, toDoArray[i].priority, toDoArray[i].complete)
+    selectedPrintDay = 0
 }
 
 
 //VIEW HIGH PRIORITY TASKS ONLY
 function showHighPriorityTasks() {
-    console.log("we are here in the high priority")
     //Display Reset
     let theList = document.getElementById("toDoDisplay");
     theList.innerHTML = " ";
@@ -243,12 +243,12 @@ function showHighPriorityTasks() {
         }
     }
     if (!found) printNoTasksMessage("high priority")
+    selectedPrintDay = 0
 }
 
 
 //'#showMeCompletedToDosButton' Clicked
 function viewCompletedTasks() {
-    console.log("View Completed Clicked!")
     $("#toDoDisplay").html('') //Display Reset
 
     let found = false
@@ -266,6 +266,7 @@ function viewCompletedTasks() {
         }
     }
     if (!found) printNoTasksMessage("completed")
+    selectedPrintDay = 0
 }
 
 //Calendar-Day Clicked
@@ -281,6 +282,7 @@ function viewMyTasksByDay() {
         }
     }
     if (!found) printNoTasksMessage("")
+    selectedPrintDay = 0
 }
 
 //No-Task Message Printer
@@ -291,12 +293,11 @@ function printNoTasksMessage(messageType) {
 
 //Task Printer
 function printTasks(text, index, priority, complete) {
+    console.log(selectedDay)
     if (selectedPrintDay !== toDoArray[index].day) {
         selectedPrintDay = toDoArray[index].day
         $("#toDoDisplay").append(`<h3> Tasks for Day ${selectedPrintDay} </h3>`)
     }
-
-    if (index + 1 === toDoArray.length) selectedPrintDay = 0
 
     //Checkbox Creation
     let elementCheckbox = $(`<input id='taskCheckbox${index}' type='checkbox'>`)//Setting HTML & ID
