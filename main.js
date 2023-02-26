@@ -5,15 +5,15 @@ $(document).ready(function () {
 
     //ViewToDos Page
     $('#showMeAllToDosButton').on('click', viewAllTasks)
-    $('#showMeHighPriorityOnlyButton').on('click', sortArray)
+    $('#showMeHighPriorityOnlyButton').on('click', showHighPriorityTasks)
     $('#showMeCompletedToDosButton').on('click', viewCompletedTasks)
 
     $("#toDoDisplay").css("height", $("#viewMyToDosContent").height()) //Setting display height
 
     //ViewToDoDetails Page
-    $('#completeTaskButton').on('click', completeTask)
-    $('#editTaskButton').on('click', editTask)
+    $('#saveTaskButton').on('click', saveTask)
     $('#deleteTaskButton').on('click', deleteTask)
+
 
     //PAGE BEFORE SHOW CODE START ----------------------------------------------------------------------
     $("#viewMyToDosPage").on("pagebeforeshow", function () {
@@ -23,20 +23,15 @@ $(document).ready(function () {
     })
 
     $("#viewToDoDetailsPage").on("pagebeforeshow", function () {
-        $("#details").html('')
-        let task = toDoArray[findIndex()]
-        if (task) {
-            // $("#details").append(`Task Name: ${task.task}                         <br>`)
-            // $("#details").append(`Category:  ${categoryTranslator(task.category)} <br>`)
-            // $("#details").append(`Priority:  ${priorityTranslator(task.priority)} <br>`)
-            // $("#details").append(`Day:       ${task.day}                          <br>`)
-            // $("#details").append(`Task Description: ${task.description}           <br>`)
+        //$("#details").html('')
+        let index = findIndex();
 
-            $("#detailsTaskName").val(task.task)
+        if (toDoArray[index]) {
+            $("#detailsTaskName").val(toDoArray[index].task)
+            $("#detailsTaskCategory").val(`${toDoArray[index].category}`)
+
             //Add Category and Priority!!
-            $("#detailsTaskDescription").val(task.description)
-
-
+            $("#detailsTaskDescription").val(toDoArray[index].description)
         }
         //else $("#details").html("Error: No Task selected for viewing!") //Prevents error on refresh
     })
@@ -45,92 +40,92 @@ $(document).ready(function () {
 //DOM CONTENT LOADED CODE END --------------------------------------------------------------------------
 
 //VARIABLE LIBRARY
-let toDoArray = [] 
+//let toDoArray = []
 
 //FOR DEBUGGING, RESET ARRAY BEFORE SUBMISSION !!!!!
-// let toDoArray = [
-//     {
-//         "day": 1,
-//         "task": "asdasd",
-//         "category": 2,
-//         "priority": 1,
-//         "description": "",
-//         "complete": false,
-//         "id": 1677361707589
-//     },
-//     {
-//         "day": 2,
-//         "task": "asdasd",
-//         "category": 1,
-//         "priority": 2,
-//         "description": "",
-//         "complete": false,
-//         "id": 1677361711420
-//     },
-//     {
-//         "day": 3,
-//         "task": "efsdf",
-//         "category": 4,
-//         "priority": 2,
-//         "description": "",
-//         "complete": false,
-//         "id": 1677361714967
-//     },
-//     {
-//         "day": 4,
-//         "task": "fdgfdgfdg",
-//         "category": 4,
-//         "priority": 3,
-//         "description": "",
-//         "complete": false,
-//         "id": 1677361717765
-//     },
-//     {
-//         "day": 5,
-//         "task": "sdfsdf",
-//         "category": 4,
-//         "priority": 3,
-//         "description": "",
-//         "complete": false,
-//         "id": 1677361724273
-//     },
-//     {
-//         "day": 6,
-//         "task": "sdfsdf",
-//         "category": 4,
-//         "priority": 2,
-//         "description": "",
-//         "complete": false,
-//         "id": 1677361731739
-//     },
-//     {
-//         "day": 7,
-//         "task": "ewdfsf",
-//         "category": 4,
-//         "priority": 4,
-//         "description": "",
-//         "complete": false,
-//         "id": 1677361735527
-//     },
-//     {
-//         "day": 8,
-//         "task": "etretret",
-//         "category": 4,
-//         "priority": 2,
-//         "description": "",
-//         "complete": false,
-//         "id": 1677361742230
-//     },
-//     {
-//         "day": 10,
-//         "task": "fdfgdfg",
-//         "category": 4,
-//         "priority": 2,
-//         "description": "",
-//         "complete": false,
-//         "id": 1677361745733
-//     }
-// ]
+let toDoArray = [
+    {
+        "day": 1,
+        "task": "asdasd",
+        "category": 2,
+        "priority": 1,
+        "description": "",
+        "complete": false,
+        "id": 1677361707589
+    },
+    {
+        "day": 2,
+        "task": "asdasd",
+        "category": 1,
+        "priority": 2,
+        "description": "",
+        "complete": false,
+        "id": 1677361711420
+    },
+    {
+        "day": 3,
+        "task": "efsdf",
+        "category": 4,
+        "priority": 2,
+        "description": "",
+        "complete": false,
+        "id": 1677361714967
+    },
+    {
+        "day": 4,
+        "task": "fdgfdgfdg",
+        "category": 4,
+        "priority": 3,
+        "description": "",
+        "complete": false,
+        "id": 1677361717765
+    },
+    {
+        "day": 5,
+        "task": "sdfsdf",
+        "category": 4,
+        "priority": 3,
+        "description": "",
+        "complete": false,
+        "id": 1677361724273
+    },
+    {
+        "day": 6,
+        "task": "sdfsdf",
+        "category": 4,
+        "priority": 2,
+        "description": "",
+        "complete": false,
+        "id": 1677361731739
+    },
+    {
+        "day": 7,
+        "task": "ewdfsf",
+        "category": 4,
+        "priority": 4,
+        "description": "",
+        "complete": false,
+        "id": 1677361735527
+    },
+    {
+        "day": 8,
+        "task": "etretret",
+        "category": 4,
+        "priority": 2,
+        "description": "",
+        "complete": false,
+        "id": 1677361742230
+    },
+    {
+        "day": 10,
+        "task": "fdfgdfg",
+        "category": 4,
+        "priority": 2,
+        "description": "",
+        "complete": false,
+        "id": 1677361745733
+    }
+]
 
 let selectedDay
 let selectedID
@@ -169,10 +164,10 @@ function radioCheck() {
     //radios = document.querySelectorAll('input[name="priorityRadio"]')
     radios = $('input[name="priorityRadio"]')
     for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked) { 
-            if      (radios[i].id === 'radioVeryHigh') return 1
-            else if (radios[i].id === 'radioHigh')     return 2
-            else if (radios[i].id === 'radioMedium')   return 3
+        if (radios[i].checked) {
+            if (radios[i].id === 'radioVeryHigh') return 1
+            else if (radios[i].id === 'radioHigh') return 2
+            else if (radios[i].id === 'radioMedium') return 3
             else   /*radios[i].id === 'radioLow' */    return 4
         }
     }
@@ -209,29 +204,36 @@ function viewAllTasks() {
     else for (let i = 0; i < toDoArray.length; i++) printTasks(toDoArray[i].task, i, toDoArray[i].priority, toDoArray[i].complete)
 }
 
-/*
+
 //VIEW HIGH PRIORITY TASKS ONLY
 function showHighPriorityTasks() {
+    console.log("we are here in the high priority")
+    let found = false
     let theList = document.getElementById("toDoDisplay");
     theList.innerHTML = " ";
-    allTasksArray.forEach(function (element) {
-        if (element.priority == 1 || 2) {
-            var list = document.createElement('li');
-            list.innerHTML = element.task
-            theList.appendChild(list);
-            $(elementLabel).css('color', `${colorPicker(priority)}`)//Setting Color
-
+    for (let i = 0; i < toDoArray.length; i++) {
+        if (!toDoArray[i].complete) {
+            if (toDoArray[i].priority === 1 || toDoArray[i].priority === 2) {
+                printTasks(toDoArray[i].task, i, toDoArray[i].priority, toDoArray[i].complete)
+                found = true;
+                // let list = document.createElement('li');
+                // list.innerHTML = element.task
+                // theList.appendChild(list);
+                //$(elementLabel).css('color', `${colorPicker(priority)}`)//Setting Color
+            }
         }
-    })
-}*/
+    }
+    if (!found) printNoTasksMessage("high priority")
+}
+
 
 //'#showMeCompletedToDosButton' Clicked
-function viewCompletedTasks () {
+function viewCompletedTasks() {
     console.log("View Completed Clicked!")
-     $("#toDoDisplay").html('') //Display Reset
+    $("#toDoDisplay").html('') //Display Reset
 
     let found = false
-    for (let i=0;i<toDoArray.length;i++) {
+    for (let i = 0; i < toDoArray.length; i++) {
         //If Calendar-Day selected, only print for selected day
         if (selectedDay === toDoArray[i].day && toDoArray[i].complete) {
             printTasks(toDoArray[i].task, i, toDoArray[i].priority, toDoArray[i].complete)
@@ -265,7 +267,7 @@ function viewMyTasksByDay() {
 //No-Task Message Printer
 function printNoTasksMessage(messageType) {
     $("#toDoDisplay").html("") //Display Reset
-    $("#toDoDisplay").append(`<h3>There are no ${messageType} tasks to display${selectedDay?` for day ${selectedDay}`:''}.</h3>`)
+    $("#toDoDisplay").append(`<h3>There are no ${messageType} tasks to display${selectedDay ? ` for day ${selectedDay}` : ''}.</h3>`)
 }
 
 //Task Printer
@@ -275,11 +277,11 @@ function printTasks(text, index, priority, complete) {
         $("#toDoDisplay").append(`<h3> Tasks for Day ${selectedPrintDay} </h3>`)
     }
 
-    if (index+1 === toDoArray.length) selectedPrintDay = 0
+    if (index + 1 === toDoArray.length) selectedPrintDay = 0
 
     //Checkbox Creation
     let elementCheckbox = $(`<input id='taskCheckbox${index}' type='checkbox'>`)//Setting HTML & ID
-    if (complete) $(elementCheckbox).prop( "checked", true )//Checking Checkbox (If Applicable)
+    if (complete) $(elementCheckbox).prop("checked", true)//Checking Checkbox (If Applicable)
 
     //Label Creation
     let elementLabel = $(`<label id='taskLabel${index}'>${text}</label>`)//Setting HTML, Text & ID
@@ -296,10 +298,10 @@ function printTasks(text, index, priority, complete) {
             $(`#taskLabel${index}`).css('color', colorPicker('complete'))
         }
 
-        else if (toDoArray[index].complete === true){ //..Unchecking if initially true
+        else if (toDoArray[index].complete === true) { //..Unchecking if initially true
             toDoArray[index].complete = false
             $(`#taskLabel${index}`).css('color', colorPicker(toDoArray[index].priority))
-        }     
+        }
     })
 
     //Label Click Event-Handler
@@ -310,18 +312,25 @@ function printTasks(text, index, priority, complete) {
 }
 
 //Array Sorter
-function sortArray(){
+function sortArray() {
     toDoArray = toDoArray.sort((p1, p2) => (p1.priority > p2.priority) ? 1 : (p1.priority < p2.priority) ? -1 : 0) //Sorting by Priority
     toDoArray = toDoArray.sort((p1, p2) => (p1.day > p2.day) ? 1 : (p1.day < p2.day) ? -1 : 0) //Sorting by Day
 }
 //'#viewMyToDos' PAGE FUNCTIONS END --------------------------------------------------------------------
 
 //'#viewToDoDetails' PAGE FUNCTIONS START --------------------------------------------------------------
-//'#editTaskButton' Clicked
-function editTask () {}
+//'#saveTaskButton' Clicked
+function saveTask() {
+    let index = findIndex();
+    toDoArray[index].description = ($('#detailsTaskDescription').val()).trim();//Verifying input isn't just whitespace
+    toDoArray[index].task = ($('#detailsTaskName').val()).trim();
 
-//'#completeTaskButton' Clicked
-function completeTask () {}
+    let category = parseInt($('#detailsTaskCategory').val());
+
+    toDoArray[index].category = (category === 0 ? 4 : category)
+
+    toDoArray[index].priority = parseInt($('#detailsTaskPriority').val());
+}
 
 //'#deleteButton' Clicked
 function deleteTask() { toDoArray.splice(findIndex(), 1) }
@@ -337,29 +346,29 @@ function colorPicker(priority) {
 }
 
 function categoryTranslator(category) {
-    if      (category === 1) return 'Work'
+    if (category === 1) return 'Work'
     else if (category === 2) return 'School'
     else if (category === 3) return 'Home'
     else if (category === 4) return 'None' //Make this default?
 }
 
 function priorityTranslator(priority) {
-    if      (priority === 1) return 'Very High'
+    if (priority === 1) return 'Very High'
     else if (priority === 2) return 'High'
     else if (priority === 3) return 'Medium'
     else if (priority === 4) return 'Low'
 }
 
-function findIndex () { for (let i = 0;i<toDoArray.length;i++) if (toDoArray[i].id === selectedID) return i }
+function findIndex() { for (let i = 0; i < toDoArray.length; i++) if (toDoArray[i].id === selectedID) return i }
 //GENERAL FUNCTIONS END --------------------------------------------------------------------------------
 
 //CALENDAR CODE START ----------------------------------------------------------------------------------
 //CALENDAR GENERATION START ----------------------------------------------------------------------------
 let d = new Date();
 function createCalendar(month) {
-    
+
     //Table Header
-    let monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+    let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     let table = `<h3>${monthNames[month]}</h3><table><tr><th>MO</th><th>TU</th><th>WE</th><th>TH</th><th>FR</th><th>SA</th><th>SU</th></tr><tr>`;
     d.setDate(1)
 
