@@ -147,13 +147,6 @@ select, option{
     /* background-color: aqua; */
 }
 
-/* #viewMyToDosButtonContainer {
-    display: flex;
-    justify-content: space-around;
-    background-color: green;
-    align-items: center;
-} */
-
 #leftSideViewToDoContainer {
     text-align: center;
     /* background-color: rgb(96, 96, 248); */
@@ -178,17 +171,12 @@ select, option{
 
 
 /*VIEW DETAILS PAGE START -------------------------------*/
-/* #viewToDoDetailsContent {
-    background-image: url("../CSS/Images/pencilyellow.png");
-    background-size: cover;
-} */
-
 #viewToDoDetailsHeader h1 {
     margin: 0 !important;
 }
 
 #viewToDoDetailsContent {
-    padding: 15px 150px 0px 150px;
+    padding: 15px 250px 0px 250px;
     text-align: center;
 }
 

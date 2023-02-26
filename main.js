@@ -16,116 +16,127 @@ $(document).ready(function () {
 
 
     //PAGE BEFORE SHOW CODE START ----------------------------------------------------------------------
+    $("#addAToDoPage").on("pagebeforeshow", i => addToDoInputReset() )
+
     $("#viewMyToDosPage").on("pagebeforeshow", function () {
-        //sortArray() -- FOR USE WITH DAY/HEADER SEPARATION
+        sortArray()
         viewAllTasks()
         console.log(toDoArray)
     })
 
     $("#viewToDoDetailsPage").on("pagebeforeshow", function () {
-        //$("#details").html('')
-        let index = findIndex();
+        try {
+            let index = findIndex();
+            if (toDoArray[index]) {
+                $("#detailsTaskName").val(toDoArray[index].task)
+    
+                $('#detailsTaskCategory').val(String(toDoArray[index].category))
+                $('#detailsTaskCategory').selectmenu('refresh')
 
-        if (toDoArray[index]) {
-            $("#detailsTaskName").val(toDoArray[index].task)
-            $("#detailsTaskCategory").val(`${toDoArray[index].category}`)
-
-            //Add Category and Priority!!
-            $("#detailsTaskDescription").val(toDoArray[index].description)
+                $(`#viewToDoDetailsCalendar #${toDoArray[index].day + "day"}`).css('background-color', 'aqua')
+    
+                $('#detailsTaskPriority').val(String(toDoArray[index].priority))
+                $('#detailsTaskPriority').selectmenu('refresh')
+    
+                $("#detailsTaskDescription").val(toDoArray[index].description)
+            }
+        } 
+        catch { //ID Not Found
+            alert("Error: Task not found")
+            window.location.href = "#viewMyToDosPage"
         }
-        //else $("#details").html("Error: No Task selected for viewing!") //Prevents error on refresh
     })
     //PAGE BEFORE SHOW CODE END ------------------------------------------------------------------------
 });
 //DOM CONTENT LOADED CODE END --------------------------------------------------------------------------
 
 //VARIABLE LIBRARY
-//let toDoArray = []
+let toDoArray = []
 
-//FOR DEBUGGING, RESET ARRAY BEFORE SUBMISSION !!!!!
-let toDoArray = [
-    {
-        "day": 1,
-        "task": "asdasd",
-        "category": 2,
-        "priority": 1,
-        "description": "",
-        "complete": false,
-        "id": 1677361707589
-    },
-    {
-        "day": 2,
-        "task": "asdasd",
-        "category": 1,
-        "priority": 2,
-        "description": "",
-        "complete": false,
-        "id": 1677361711420
-    },
-    {
-        "day": 3,
-        "task": "efsdf",
-        "category": 4,
-        "priority": 2,
-        "description": "",
-        "complete": false,
-        "id": 1677361714967
-    },
-    {
-        "day": 4,
-        "task": "fdgfdgfdg",
-        "category": 4,
-        "priority": 3,
-        "description": "",
-        "complete": false,
-        "id": 1677361717765
-    },
-    {
-        "day": 5,
-        "task": "sdfsdf",
-        "category": 4,
-        "priority": 3,
-        "description": "",
-        "complete": false,
-        "id": 1677361724273
-    },
-    {
-        "day": 6,
-        "task": "sdfsdf",
-        "category": 4,
-        "priority": 2,
-        "description": "",
-        "complete": false,
-        "id": 1677361731739
-    },
-    {
-        "day": 7,
-        "task": "ewdfsf",
-        "category": 4,
-        "priority": 4,
-        "description": "",
-        "complete": false,
-        "id": 1677361735527
-    },
-    {
-        "day": 8,
-        "task": "etretret",
-        "category": 4,
-        "priority": 2,
-        "description": "",
-        "complete": false,
-        "id": 1677361742230
-    },
-    {
-        "day": 10,
-        "task": "fdfgdfg",
-        "category": 4,
-        "priority": 2,
-        "description": "",
-        "complete": false,
-        "id": 1677361745733
-    }
-]
+//FOR DEBUGGING PURPOSES ONLY
+// let toDoArray = [
+//     {
+//         "day": 1,
+//         "task": "asdasd",
+//         "category": 2,
+//         "priority": 1,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361707589
+//     },
+//     {
+//         "day": 2,
+//         "task": "asdasd",
+//         "category": 1,
+//         "priority": 2,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361711420
+//     },
+//     {
+//         "day": 3,
+//         "task": "efsdf",
+//         "category": 4,
+//         "priority": 2,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361714967
+//     },
+//     {
+//         "day": 4,
+//         "task": "fdgfdgfdg",
+//         "category": 4,
+//         "priority": 3,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361717765
+//     },
+//     {
+//         "day": 5,
+//         "task": "sdfsdf",
+//         "category": 4,
+//         "priority": 3,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361724273
+//     },
+//     {
+//         "day": 6,
+//         "task": "sdfsdf",
+//         "category": 4,
+//         "priority": 2,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361731739
+//     },
+//     {
+//         "day": 7,
+//         "task": "ewdfsf",
+//         "category": 4,
+//         "priority": 4,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361735527
+//     },
+//     {
+//         "day": 8,
+//         "task": "etretret",
+//         "category": 4,
+//         "priority": 2,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361742230
+//     },
+//     {
+//         "day": 10,
+//         "task": "fdfgdfg",
+//         "category": 4,
+//         "priority": 2,
+//         "description": "",
+//         "complete": false,
+//         "id": 1677361745733
+//     }
+// ]
 
 let selectedDay
 let selectedID
@@ -148,20 +159,13 @@ function addTask() {
         //TaskArray
         toDoArray.push(new task(calendarCheck(), inputCheck(), categoryCheck(), radioCheck()))
         console.log(toDoArray)
-
-        //Input Resets
-        $(`input[name="priorityRadio"]`).attr('checked', false)
-        $('#category').val('default')
-        $('#category').selectmenu('refresh')
-        $("#toDoInput").val('')
-        calenderResetSelection()
+        addToDoInputReset()
 
     } catch (error) { alert(error) }
 }
 
 //Validation Functions
 function radioCheck() {
-    //radios = document.querySelectorAll('input[name="priorityRadio"]')
     radios = $('input[name="priorityRadio"]')
     for (let i = 0; i < radios.length; i++) {
         if (radios[i].checked) {
@@ -189,12 +193,20 @@ function calendarCheck() {
     if (selectedDay) return selectedDay
     throw new Error("Please select a date for your task!")
 }
+
+//Add To-Do Input Reset
+function addToDoInputReset() {
+    $(`input[name="priorityRadio"]`).attr('checked', false)
+    $('#category').val('default')
+    $('#category').selectmenu('refresh')
+    $("#toDoInput").val('')
+    calenderResetSelection()
+}
 //'#addAToDo' PAGE FUNCTIONS END -----------------------------------------------------------------------
 
 //'#viewMyToDos' PAGE FUNCTIONS START ------------------------------------------------------------------
 //'#showMeAllToDosButton' Clicked.. (Or '#viewMyToDos' Page Loaded)
 function viewAllTasks() {
-    console.log("View All Clicked!")
     //Display Reset
     $("#toDoDisplay").html('')
     calenderResetSelection()
@@ -208,18 +220,25 @@ function viewAllTasks() {
 //VIEW HIGH PRIORITY TASKS ONLY
 function showHighPriorityTasks() {
     console.log("we are here in the high priority")
-    let found = false
+    //Display Reset
     let theList = document.getElementById("toDoDisplay");
     theList.innerHTML = " ";
+
+    let found = false
     for (let i = 0; i < toDoArray.length; i++) {
-        if (!toDoArray[i].complete) {
-            if (toDoArray[i].priority === 1 || toDoArray[i].priority === 2) {
-                printTasks(toDoArray[i].task, i, toDoArray[i].priority, toDoArray[i].complete)
-                found = true;
-                // let list = document.createElement('li');
-                // list.innerHTML = element.task
-                // theList.appendChild(list);
-                //$(elementLabel).css('color', `${colorPicker(priority)}`)//Setting Color
+        if (toDoArray[i].priority === 1 || toDoArray[i].priority === 2){ // If task is Priority 1 or 2..
+            if (!toDoArray[i].complete) { //..and not complete
+
+                if (selectedDay === toDoArray[i].day) {
+                    printTasks(toDoArray[i].task, i, toDoArray[i].priority, toDoArray[i].complete)
+                    found = true;
+                }
+        
+                //If Calendar-Day not selected, print for all days
+                else if (!selectedDay) {
+                    printTasks(toDoArray[i].task, i, toDoArray[i].priority, toDoArray[i].complete)
+                    found = true
+                }
             }
         }
     }
@@ -304,11 +323,20 @@ function printTasks(text, index, priority, complete) {
         }
     })
 
-    //Label Click Event-Handler
+    //Label Click Event-HandlersortArray()
     $(`#taskLabel${index}`).on("click", function () {
         selectedID = toDoArray[index].id
         window.location.href = "#viewToDoDetailsPage"
     })
+}
+
+//Color Picker
+function colorPicker(priority) {
+    if (priority === 1) return 'rgb(212, 2, 2)'
+    else if (priority === 2) return 'rgb(255, 68, 0)'
+    else if (priority === 3) return 'rgb(239, 168, 3)'
+    else if (priority === 4) return 'green'
+    else return 'darkgreen' //For Complete
 }
 
 //Array Sorter
@@ -322,45 +350,23 @@ function sortArray() {
 //'#saveTaskButton' Clicked
 function saveTask() {
     let index = findIndex();
-    toDoArray[index].description = ($('#detailsTaskDescription').val()).trim();//Verifying input isn't just whitespace
-    toDoArray[index].task = ($('#detailsTaskName').val()).trim();
 
-    let category = parseInt($('#detailsTaskCategory').val());
-
-    toDoArray[index].category = (category === 0 ? 4 : category)
-
-    toDoArray[index].priority = parseInt($('#detailsTaskPriority').val());
+    toDoArray[index].task = ($('#detailsTaskName').val()).trim() //Verifying input isn't just whitespace
+    toDoArray[index].category = parseInt($('#detailsTaskCategory').val())
+    toDoArray[index].day = selectedDay
+    toDoArray[index].priority = parseInt($('#detailsTaskPriority').val())
+    toDoArray[index].description = ($('#detailsTaskDescription').val()).trim()
 }
 
 //'#deleteButton' Clicked
-function deleteTask() { toDoArray.splice(findIndex(), 1) }
+function deleteTask() { toDoArray.splice(findIndex(), 1)}
+
+//ID Verification
+function findIndex() { 
+    for (let i = 0; i < toDoArray.length; i++) if (toDoArray[i].id === selectedID) return i
+    throw new Error //ID Not Found! (Handled in PageBeforeShow Code)
+}
 //'#viewToDoDetails' PAGE FUNCTIONS END ----------------------------------------------------------------
-
-//GENERAL FUNCTIONS START ------------------------------------------------------------------------------
-function colorPicker(priority) {
-    if (priority === 1) return 'rgb(212, 2, 2)'
-    else if (priority === 2) return 'rgb(255, 68, 0)'
-    else if (priority === 3) return 'rgb(239, 168, 3)'
-    else if (priority === 4) return 'green'
-    else return 'darkgreen' //For Complete
-}
-
-function categoryTranslator(category) {
-    if (category === 1) return 'Work'
-    else if (category === 2) return 'School'
-    else if (category === 3) return 'Home'
-    else if (category === 4) return 'None' //Make this default?
-}
-
-function priorityTranslator(priority) {
-    if (priority === 1) return 'Very High'
-    else if (priority === 2) return 'High'
-    else if (priority === 3) return 'Medium'
-    else if (priority === 4) return 'Low'
-}
-
-function findIndex() { for (let i = 0; i < toDoArray.length; i++) if (toDoArray[i].id === selectedID) return i }
-//GENERAL FUNCTIONS END --------------------------------------------------------------------------------
 
 //CALENDAR CODE START ----------------------------------------------------------------------------------
 //CALENDAR GENERATION START ----------------------------------------------------------------------------
@@ -414,7 +420,6 @@ $('.calendar .calendarDays').click(function () {
     console.log(selectedDay)
 
     if (window.location.hash === '#viewMyToDosPage') viewMyTasksByDay() //Only calling if on '#viewMyToDos' page
-    //try { viewMyTasksByDay() } catch { }
 })
 
 //Calender Reset

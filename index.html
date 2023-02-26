@@ -51,10 +51,6 @@
         <!-- </div> -->
     </div>
 
-
-
-
-
     <!-- ==================================================================================================================== -->
     <!-- ADD A TO DO PAGE =============================================================================================== -->
     <div data-role="page" id="addAToDoPage">
@@ -139,6 +135,7 @@
         </div>
 
     </div>
+
     <!-- ==================================================================================================================== -->
     <!-- VIEW MY TO DO'S PAGE ======================================================================================== -->
     <div data-role="page" id="viewMyToDosPage">
@@ -161,28 +158,18 @@
             <!-- VIEW MY TO DO'S Content -->
             <div data-role="content" data-theme='c' id="viewMyToDosContent">
 
-                <!-- <div id="viewMyToDosButtonContainer">
-                    <input type="button" class="button" value="View All To-Do's" id="showMeAllToDosButton">
-                    <input type="button" class="button" value="High Priority To-Do's" id="showMeHighPriorityOnlyButton">
-                    <input type="button" class="button" value="Completed To-Do's" id="showMeCompletedToDosButton">
-                </div> -->
-
                 <div class="viewToDoItemContainer">
 
                     <div id="leftSideViewToDoContainer">
-                        <p>Click day to view tasks for that day</p>
+                        
+                        <p>Click a day to view its tasks</p>
                         <div class="calendar" id="toDoCalendar"></div>
-
                         <input type="button" class="button" value="View All To-Do's" id="showMeAllToDosButton">
-                        <input type="button" class="button" value="High Priority To-Do's"
-                            id="showMeHighPriorityOnlyButton">
+                        <input type="button" class="button" value="High Priority To-Do's" id="showMeHighPriorityOnlyButton">
                         <input type="button" class="button" value="Completed To-Do's" id="showMeCompletedToDosButton">
                     </div>
 
                     <div id="toDoDisplay"></div>
-                    <!-- <div id="rightSideViewToDoContainer">
-                        
-                    </div> -->
                 </div>
             </div>
 
@@ -193,7 +180,6 @@
         </div>
 
     </div>
-
 
     <!-- ==================================================================================================================== -->
     <!-- VIEW TO DO DETAILS PAGE ========================================================================================== -->
@@ -220,7 +206,6 @@
                     <div>
                         <label class="headerLabel">Task Category</label>
                         <select name="detailsCategory" id="detailsTaskCategory">
-                            <option value="0">Select...</option>
                             <option value="1">Work</option>
                             <option value="2">School</option>
                             <option value="3">Home</option>
@@ -239,10 +224,10 @@
                     <div>
                         <label class="headerLabel">Task Priority</label>
                         <select name="detailsPriority" id="detailsTaskPriority">
-                            <option value="0">Very High</option>
-                            <option value="1">High</option>
-                            <option value="2">Medium</option>
-                            <option value="3">Low</option>
+                            <option value="1">Very High</option>
+                            <option value="2">High</option>
+                            <option value="3">Medium</option>
+                            <option value="4">Low</option>
                         </select>
                     </div>
                 </div>
@@ -256,8 +241,7 @@
                     </div>
                     <div id="back"><a href="#viewMyToDosPage"><input type="button" value="Back" id="backButton"></a>
                     </div>
-                    <div id="delete"><a href="#viewMyToDosPage"><input type="button" value="Delete"
-                                id="deleteTaskButton"></a></div>
+                    <div id="delete"><a href="#viewMyToDosPage"><input type="button" value="Delete" id="deleteTaskButton"></a></div>
                 </div>
             </div>
 
